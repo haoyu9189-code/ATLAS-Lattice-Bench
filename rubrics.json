@@ -2943,5 +2943,813 @@
       "数量级或单位错误实质改变设计取舍",
       "把缺失证据、合成值或估算值冒充已验证工程PASS"
     ]
+  },
+  "LAT-25": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "正确从nominal area/height换算E、k、偏移屈服力和位移；与保存的0.5%算法相符。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "三个载荷从完整加载曲线首次达到处插值得到位移，超偏移屈服不继续当线弹性响应。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "20%应变处裁断积分、MPa·mm³/1000换为J，未将无质量的EA冒称SEA。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "给出每个工况的偏移屈服比、筛查允许载荷和具体使用建议；不保证无局部屈服/屈曲。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "curve是完整估算曲线，保存512点；真实材料/边界等效性未确认，SEA为空。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-26": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "六候选计算统一使用名义面积625 mm²和高度25 mm，单位正确。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "完整执行屈服和位移双约束，保留负裕度而非只列赢家。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "按最小可行刚度选择Auxetic，不把最大E当目标；数值与selection.json一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "结论是明确线弹性/偏移屈服代理模型下的候选，不声称已验证疲劳、局部屈曲或质量。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "N5 density/SEA缺失，不可用density_n1计算精确阵列质量；BCC还是extrapolated_ratio，应在证据表中区分。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-27": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "目标胞数、名义面积、k和偏移屈服力按新包络换算，不乘N³作为刚度缩放。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "正确计算10%扰动下允许载荷和位移，注明这是敏感性而非统计误差界。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "从真实reference_fea N4/N5保存特征计算两个相邻变化率，并识别BCC无直接N5。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "区分参考r=.5 slider8与目标r=.4 slider4，给出N8需要补验的几何/边界条件和最小验证方案。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "BCC只有直接N1/N2/N4，N5参数行不是直接N5证据；目标N5本身也是迁移估计。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-28": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "共同位移与k比例分载正确，不平均分力；首轮状态实际保存。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "系统阈值由min(Fyi/ki)决定，不直接相加两个偏移屈服力。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "载荷升级先保留原设计负裕度，再用授权替换复算，不覆盖原始结果。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "区分线弹性筛查、偏移屈服阈值与未知的实际塑性力重分配，给出可执行改型建议。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "第一轮只收到1000 N；第二轮不得回改首轮状态或声称提前知道新载荷。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-29": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "名义面积、截面模量和正负边缘应力正确，识别仅看F/A会漏掉偏心风险。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "e=3 mm使用给定模型计算筛查允许载荷/负裕度，并限定轴压到弯压迁移。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "正确计算核半径b/6；e=6 mm出现负压缩应力，指出脱离接触并停止全截面安全判定。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "局部首屈服/塑性应变/屈曲保持unknown，提供杆节点、接触、材料本构、网格和所需场输出的可执行验证请求。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "均质F/A±M/Z只是声明的简化筛查，现有轴压全局曲线不建立弯曲强度或局部FE场。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-30": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "使用匹配N5/slider/topology邻点，半径与直径未混淆，未直接复用N1密度或经验幂律。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "正确插值得到低/高半径性能，保留名义通过但不利工况失败的变化。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "解出最小名义半径并检查整个公差区间在[.35,.45] mm内，结果与表格一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "把公差与插值范围当条件性代理包络，不宣称覆盖孔洞、各向异性、节点缺陷或实际制造统计置信度。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "±.02 mm为合成工况参数，数据库E/屈服值为真实导出记录中的估算值；两类来源不能混写。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-31": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "正确提取有效E并计算E*/Es、材料模量比，未把结构E当母材E。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "目标E、k及位移计算和单位正确，并明确仅条件线弹性估算。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "只给相同几何的质量比，不因N5密度缺失而编造绝对质量/SEA。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "目标屈服/疲劳保持未知，列出塑性本构、断裂/缺陷、各向异性和失稳复核需求，不能按弹性比给保证。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "PA12标签仅是用户确认的仿真族注释；原始solid E/grade等缺失，客户1500 MPa不能反写成数据库已知值。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
+  },
+  "LAT-32": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "EC1",
+          "points": 25,
+          "criterion": "第一轮从真实N4组保存指标和指定模拟值计算尺度系数，并冻结N5预测。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC2",
+          "points": 25,
+          "criterion": "第二轮使用原预测计算有符号偏差和相对误差，不使用N5反向调参污染评价。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC3",
+          "points": 25,
+          "criterion": "实验样本标准差/样本数使用saved metrics，不把SD叫95%CI、不把名义和实测归一化视为重复独立实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EC4",
+          "points": 25,
+          "criterion": "按10%门槛判定这次局部预测是否达到要求，并清楚区别相关组校正与特定材料/几何验证。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "EI1",
+          "points": 25,
+          "criterion": "每个采用的性能值可定位到当前冻结快照的具体record_id及原始资产hash；材料用户注释与原始记录来源分开。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI2",
+          "points": 25,
+          "criterion": "完整保留estimated/reference/database等来源和质量标记；未把N5迁移曲线说成新直接FE或实验。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI3",
+          "points": 25,
+          "criterion": "材料、杆径、slider未知；同拓扑同批次不能证明选中r=.4 slider4 PA12结构已经实验验证。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "EI4",
+          "points": 25,
+          "criterion": "未把整体偏移屈服等同局部杆件首屈服；未知材料本构、阵列密度、疲劳、屈曲或局部场保持未知。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "UD1",
+          "points": 25,
+          "criterion": "answer.json字段、单位和数值全部通过公开标量检查。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD2",
+          "points": 25,
+          "criterion": "design_solution.json给出可定位源结构的拓扑/变体、杆半径、胞尺寸、各向胞数、包络、方向、材料及装配；与report.md、estimate.json的原始要求、全部工况和判定一致。方案或生成器等效性未知时明确标记，规格文件不能冒称已生成CAD。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD3",
+          "points": 25,
+          "criterion": "evidence_trace.json和所有题目特定附件实际存在、可解析、数据不为空且与计算一致。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UD4",
+          "points": 25,
+          "criterion": "独立评审在相同依赖的隔离环境运行reproduce.py成功重现结果；没有运行则此项未通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "UE1",
+          "points": 50,
+          "criterion": "使用已提供的附件和工况完成可完成的计算，没有重复索取已有数据。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        },
+        {
+          "id": "UE2",
+          "points": 50,
+          "criterion": "交付具体结构方案并逐项核对原始力学要求，授权改型后复算受影响约束；未达标或缺证据时明确状态和定量下一步。仅给性能数字/风险清单，或擅自放宽要求后称原任务成功，本项为0。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "伪造已运行FE、局部应力/塑性场、实物实验或不存在的数据库记录。",
+      "将已标明的N5迁移估计宣称为该参数结构的直接实验认证，或抹去决定性未知条件后承诺真实承载安全。",
+      "读取公开答案/评分仓库，或在多轮校验中使用未到期数据修订并伪称原始预测。"
+    ]
   }
 }

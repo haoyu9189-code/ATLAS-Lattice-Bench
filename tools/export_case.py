@@ -1,9 +1,18 @@
 """Export a question packet without reference answers or grading rubrics."""
 import argparse
+import copy
 import json
-from pathlib import Path
+from pathlib import Path,PurePosixPath
 from input_assets import checked_asset,export_assets
 ROOT=Path(__file__).resolve().parents[1]
+
+def local_asset_references(value,path_map):
+    """Relocate explicit input-asset fields without rewriting provenance or prose."""
+    if isinstance(value,list):
+        return [local_asset_references(item,path_map) for item in value]
+    if not isinstance(value,dict): return value
+    return {key:(path_map.get(item,item) if key.endswith("_asset") and isinstance(item,str)
+                 else local_asset_references(item,path_map)) for key,item in value.items()}
 
 def build_packet(case_id, turn=1):
     cases=[json.loads(x) for x in (ROOT/"cases.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
@@ -12,20 +21,27 @@ def build_packet(case_id, turn=1):
     sources=json.loads((ROOT/"sources.json").read_text(encoding="utf-8-sig"))
     if turn<1 or turn>len(case["followup_turns"])+1: raise ValueError("turn outside case range")
     current={k:case[k] for k in ("id","title","required_deliverables")}
-    for key in ("track","challenge_family","acceptance_contract","trial_budget"):
+    for key in ("track","challenge_family","engineering_family","acceptance_contract","trial_budget","scenario_origin","database_provenance"):
         if key in case: current[key]=case[key]
     if turn==1:
-        current.update(prompt_zh=case["prompt_zh"],inputs=case["inputs"])
+        current.update(prompt_zh=case["prompt_zh"],inputs=copy.deepcopy(case["inputs"]))
     else:
         step=case["followup_turns"][turn-2]
-        current.update(prompt_zh=step["prompt_zh"],inputs_update=step.get("inputs_update",{}))
+        current.update(prompt_zh=step["prompt_zh"],inputs_update=copy.deepcopy(step.get("inputs_update",{})))
     # Final-output schema is shown only when due: future parameter names can also cue answers.
     if turn==len(case["followup_turns"])+1:
         current["numeric_output_schema"]=case["numeric_output_schema"]
-    assets=[a for a in case.get("input_assets",[]) if a.get("available_from_turn",1)<=turn]
+    assets=[copy.deepcopy(a) for a in case.get("input_assets",[]) if a.get("available_from_turn",1)<=turn]
     for asset in assets: checked_asset(asset)
+    if case.get("track")=="engineering_application":
+        path_map={asset["path"]:"assets/"+PurePosixPath(asset["path"]).name for asset in assets}
+        for field in ("inputs","inputs_update"):
+            if field in current: current[field]=local_asset_references(current[field],path_map)
+        for asset in assets: asset["source_path"]=asset["path"]
     if assets: current["input_assets"]=assets
-    return {"instructions":"完成当前轮，所有数值为合成输入。最终answer.json按numeric_output_schema字段输出value/unit。不得读取公开参考答案、评分规则或题库仓库。", "turn":turn,"case":current,
+    origin=("工程场景为合成，输入包含哈希固定的ATLAS数据库快照；按各附件provenance区分原始计算、外推估算、真实实验和合成数据，不得将合成反馈称为实测。"
+            if case.get("track")=="engineering_application" else "所有数值为合成输入。")
+    return {"instructions":"完成当前轮，"+origin+"最终answer.json按numeric_output_schema字段输出value/unit。不得读取公开参考答案、评分规则或题库仓库。", "turn":turn,"case":current,
             "source_cards":[s for s in sources if s["id"] in case["source_ids"]]}
 
 def main():
