@@ -8,7 +8,12 @@
     "doi": "10.1038/s42256-025-01067-x",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["inverse_design", "nonlinear_response", "defect_tolerance", "vibration"],
+    "topics": [
+      "inverse_design",
+      "nonlinear_response",
+      "defect_tolerance",
+      "vibration"
+    ],
     "supports_zh": "GraphMetaMat将图表示、代理模型与搜索用于目标应力应变曲线和振动传递响应，并纳入几何与缺陷约束。适合考查目标曲线误差、可行性筛选及代理预测后的独立验证。",
     "limits_zh": "打开的是出版社摘要和数据/代码可用性说明；没有据此复现论文。文中性能优势只属于论文规定的材料、数据和比较条件，不能视为ATLAS已具备的能力。",
     "access_evidence": "publisher_abstract"
@@ -22,7 +27,12 @@
     "doi": "10.1038/s41467-026-77560-7",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["tpms", "heterogeneous_interfaces", "graded_design", "cad_connectivity"],
+    "topics": [
+      "tpms",
+      "heterogeneous_interfaces",
+      "graded_design",
+      "cad_connectivity"
+    ],
     "supports_zh": "研究通过过渡单胞连接TPMS薄壁与杆系点阵，同时检查几何连接和力学兼容性，并提供原型及计算资料。适合考查异构界面连续、网格连通、局部最小特征及可交付几何。",
     "limits_zh": "仅用于结构与建模背景；不推导生物医用疗效。论文局部刚度调节范围不等于任意材料或混合拓扑的通用保证。",
     "access_evidence": "publisher_fulltext"
@@ -36,7 +46,12 @@
     "doi": "10.1007/s00170-026-19103-4",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["manufacturing_defects", "sls", "material_process_transfer", "robustness"],
+    "topics": [
+      "manufacturing_defects",
+      "sls",
+      "material_process_transfer",
+      "robustness"
+    ],
     "supports_zh": "在SLS制造的PA2200 BCC点阵中，将杆件偏细、截面形状和厚度变化纳入有限元，并对照准静态压缩试验。适合考查名义/实测几何区分、缺陷敏感性和材料工艺适用范围。",
     "limits_zh": "定量结论限定于其材料、拓扑及加工条件；不能把某一壁厚误差对应的性能下降比例直接迁移到其他点阵、金属或动态冲击工况。",
     "access_evidence": "publisher_fulltext"
@@ -50,7 +65,12 @@
     "doi": "10.1038/s44455-025-00017-2",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["loading_mode", "brittle_failure", "multiscale_validation", "model_applicability"],
+    "topics": [
+      "loading_mode",
+      "brittle_failure",
+      "multiscale_validation",
+      "model_applicability"
+    ],
     "supports_zh": "通过微CT、杆件与整体试验及高保真建模讨论脆性点阵的拉压强度差异。适合考查宏观加载模式、母材拉伸/弯曲性能、节点应力集中以及跨工况外推的证据边界。",
     "limits_zh": "不应由压缩强度直接断言拉伸强度相同，也不能将脆性失效结论当成延性塑性或疲劳寿命定律。",
     "access_evidence": "publisher_fulltext"
@@ -64,7 +84,12 @@
     "doi": "10.48550/arXiv.2410.02090",
     "publication_status": "preprint",
     "verified_on": "2026-10-07",
-    "topics": ["dynamic_energy_absorption", "finite_size", "bistability", "damping"],
+    "topics": [
+      "dynamic_energy_absorption",
+      "finite_size",
+      "bistability",
+      "damping"
+    ],
     "supports_zh": "一维双稳态系统的数值研究显示，冲击响应与黏性、单胞离散尺度及冲击条件共同相关。适合考查静态吸能与动态隔冲指标的区别，以及有限尺寸和阻尼带来的条件依赖。",
     "limits_zh": "本条引用实际打开的2024作者预印本；不把一维模型的中点峰值动能比等同于三维点阵SEA，也不把其尺寸趋势当作普适单调规律。",
     "access_evidence": "author_preprint"
@@ -78,7 +103,12 @@
     "doi": "10.32604/cmes.2025.067363",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["tpms", "pore_geometry", "anisotropy", "energy_absorption"],
+    "topics": [
+      "tpms",
+      "pore_geometry",
+      "anisotropy",
+      "energy_absorption"
+    ],
     "supports_zh": "比较不同孔形与周期/混合布置，通过均匀化、有限元和压缩试验研究各向异性及吸能。适合考查相同密度与边界条件下的比较、方向性指标及压缩曲线积分。",
     "limits_zh": "本次读取出版社摘要和出版信息；孔形排名不能脱离论文条件迁移，题库数值不能伪装成该论文的实测数据。",
     "access_evidence": "publisher_abstract"
@@ -92,7 +122,12 @@
     "doi": "10.48550/arXiv.2411.19681",
     "publication_status": "preprint",
     "verified_on": "2026-10-07",
-    "topics": ["inverse_design", "freeform_geometry", "graded_design", "cad_connectivity"],
+    "topics": [
+      "inverse_design",
+      "freeform_geometry",
+      "graded_design",
+      "cad_connectivity"
+    ],
     "supports_zh": "点云生成方法探索超出固定参数族的三维单胞设计，并讨论连接有效性及不同单胞之间的拓扑过渡。适合考查生成结果的连通性、几何有效性和性能验证，而非只评价外观。",
     "limits_zh": "published_on为初次提交日期；实际打开的v2修订于2025-09-17。按作者预印本标注，不能把生成的点云直接视为合格可打印实体。",
     "access_evidence": "author_preprint"
@@ -106,7 +141,12 @@
     "doi": "10.1038/s41598-026-41048-7",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["multi_material", "interfaces", "finite_size", "crashworthiness"],
+    "topics": [
+      "multi_material",
+      "interfaces",
+      "finite_size",
+      "crashworthiness"
+    ],
     "supports_zh": "研究PLA/TPU组合、杆系与板系结构、单胞数量和厚度参数对准静态压缩及吸能的影响，并检查材料界面。适合考查多材料可制造性、质量归一化、CFE及不同阵列条件的可比性。",
     "limits_zh": "准静态压缩与特定聚合物界面结果不能证明高速冲击或所有材料组合有效；单胞数变化须同时审查总体尺寸、质量和其他参数，不能直接当纯尺寸效应。",
     "access_evidence": "publisher_fulltext"
@@ -120,7 +160,12 @@
     "doi": "10.1371/journal.pone.0345912",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["multifunctional", "thermal_conduction", "tpms", "model_applicability"],
+    "topics": [
+      "multifunctional",
+      "thermal_conduction",
+      "tpms",
+      "model_applicability"
+    ],
     "supports_zh": "讨论TPMS拓扑过渡、承载与固体导热联合分析。适合考查多个目标的约束选择，以及导热、孔隙流动、对流换热指标之间的区别。",
     "limits_zh": "全文明确排除孔内流动与对流，未分析渗透率和压降；仅作为研究主题与适用范围的来源，不采纳其数值作为题库真值，所有题目数据独立构造并校核。",
     "access_evidence": "publisher_fulltext"
@@ -134,7 +179,12 @@
     "doi": "10.1007/s11012-026-02135-1",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["homogenization", "topology_optimization", "stiffness", "volume_fraction"],
+    "topics": [
+      "homogenization",
+      "topology_optimization",
+      "stiffness",
+      "volume_fraction"
+    ],
     "supports_zh": "在给定体积分数下结合渐近均匀化与拓扑优化，优化周期单胞的体积模量或剪切模量。适合考查刚度张量、密度约束、优化目标和周期假设是否匹配。",
     "limits_zh": "本次读取出版社摘要；数值周期单胞的等效性质不能直接证明有限阵列、边界层或缺陷试样达到同样性能。",
     "access_evidence": "publisher_abstract"
@@ -148,7 +198,12 @@
     "doi": "10.48550/arXiv.2609.33598",
     "publication_status": "preprint",
     "verified_on": "2026-10-07",
-    "topics": ["manufacturability", "pareto_optimization", "powder_removal", "multifunctional"],
+    "topics": [
+      "manufacturability",
+      "pareto_optimization",
+      "powder_removal",
+      "multifunctional"
+    ],
     "supports_zh": "将悬垂、封闭腔和排粉通道等制造约束纳入多目标点阵优化及Pareto集合构建。适合考查先筛制造可行性再比较性能、非支配解计算与受限预算下的候选覆盖。",
     "limits_zh": "按实际读取的arXiv版本标注；页面称其为已接收中文论文的英文译稿，未独立核验期刊正式版本。预印本报告的可制造率不等于本题库或任意打印机的成功率。",
     "access_evidence": "author_preprint"
@@ -162,7 +217,12 @@
     "doi": "10.1016/j.compstruct.2024.118555",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["tpms", "hybrid_topology", "anisotropy", "energy_absorption"],
+    "topics": [
+      "tpms",
+      "hybrid_topology",
+      "anisotropy",
+      "energy_absorption"
+    ],
     "supports_zh": "杆壳互穿设计通过融合比例调节力学响应和各向异性，并讨论失效后互相支撑与吸能稳定性。适合考查等质量混合拓扑比较、弹性方向性与峰后曲线评价。",
     "limits_zh": "实际读取Cardiff作者仓储的文献记录和摘要，仓储提供accepted post-print；准确发表日未核实所以为null。不能把仓储接收日或存入日当发表日，亦不将最大改善幅度当通用常数。",
     "access_evidence": "author_preprint"
@@ -176,9 +236,35 @@
     "doi": "10.1143/JPSJ.74.2866",
     "publication_status": "peer_reviewed",
     "verified_on": "2026-10-07",
-    "topics": ["foundational_kinematics", "rotating_rigid_units", "auxetic", "connectivity", "cad_geometry"],
+    "topics": [
+      "foundational_kinematics",
+      "rotating_rigid_units",
+      "auxetic",
+      "connectivity",
+      "cad_geometry"
+    ],
     "supports_zh": "经典旋转刚性单元运动学研究，区分两种角点连接的矩形阵列。理想刚性正方形及Type II矩形的泊松比为-1；Type I矩形则受长宽比、旋转角和加载方向影响，可能为正或负。适合考查角点配对、周期尺寸、运动学推导和正方形特例。",
     "limits_zh": "2005年10月基础文献，不计入近期研究热点；准确日期未核实故为null。实际打开的是作者网站托管的两页已发表论文PDF，access_evidence使用作者版本类别，并非声称论文未经同行评审。结论基于刚性单元与理想铰链，不能直接证明有限柔性铰链打印件的泊松比、强度或疲劳性能；矩形连接类型必须明确。",
     "access_evidence": "author_preprint"
+  },
+  {
+    "id": "ATLAS-SNAPSHOT",
+    "title": "Frozen ATLAS Site database engineering subset and related compression experiments",
+    "year": 2026,
+    "published_on": "2026-10-07",
+    "verified_on": "2026-10-07",
+    "publication_status": "versioned_dataset_fixture",
+    "url": "https://github.com/haoyu9189-code/ATLAS-Lattice-Bench/tree/codex/engineering-applications/fixtures/engineering",
+    "topics": [
+      "engineering_estimation",
+      "finite_size",
+      "yield",
+      "experimental_feedback"
+    ],
+    "supports_zh": "来自已发布Site快照的21条原始/扩展参数记录、完整仿真曲线、直接尺寸参考和两组真实实验保存指标；均保留源资产hash与来源等级。",
+    "limits_zh": "N>1参数记录为迁移估计；实验几何参数与材料尚未匹配；没有局部应力/塑性/屈曲真值。工程载荷及指定简化模型是合成场景。",
+    "access_evidence": "local_published_snapshot_manifest_and_asset_sha256_verified_no_fresh_live_fetch",
+    "upstream_manifest_sha256": "20f417ca1d0550b0df3f0ed1f893fab0ac73ad3a11218e1f49c7ecb13960e41d",
+    "snapshot_at": "2026-10-05T11:45:39.970708+00:00"
   }
 ]

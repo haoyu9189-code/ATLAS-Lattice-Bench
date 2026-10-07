@@ -1,4 +1,4 @@
-# 研究挑战题 v0.2.0
+# 研究挑战题 v0.3.0
 
 LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚点正确不代表任务完成。仍是公开开发题，未验证模型区分度。
 
@@ -199,7 +199,7 @@ LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚
 }
 ```
 
-研究背景：[S02](https://www.nature.com/articles/s41467-026-77560-7)；[S03](https://link.springer.com/article/10.1007/s00170-026-19103-4)；[S07](https://arxiv.org/abs/2411.19681v2)；[S11](https://arxiv.org/abs/2609.33598)。
+来源与适用范围：[S02](https://www.nature.com/articles/s41467-026-77560-7)；[S03](https://link.springer.com/article/10.1007/s00170-026-19103-4)；[S07](https://arxiv.org/abs/2411.19681v2)；[S11](https://arxiv.org/abs/2609.33598)。
 
 ## LAT-22 · 非线性点阵闭环：真实建模、位移续接求解与受预算约束的曲线匹配
 
@@ -412,7 +412,7 @@ LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚
 }
 ```
 
-研究背景：[S01](https://www.nature.com/articles/s42256-025-01067-x)；[S05](https://arxiv.org/abs/2410.02090)。
+来源与适用范围：[S01](https://www.nature.com/articles/s42256-025-01067-x)；[S05](https://arxiv.org/abs/2410.02090)。
 
 ## LAT-23 · 多功能约束冲突的有限模型证书与最小授权放宽重建
 
@@ -629,7 +629,7 @@ LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚
 }
 ```
 
-研究背景：[S01](https://www.nature.com/articles/s42256-025-01067-x)；[S08](https://www.nature.com/articles/s41598-026-41048-7)；[S09](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0345912)；[S11](https://arxiv.org/abs/2609.33598)。
+来源与适用范围：[S01](https://www.nature.com/articles/s42256-025-01067-x)；[S08](https://www.nature.com/articles/s41598-026-41048-7)；[S09](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0345912)；[S11](https://arxiv.org/abs/2609.33598)。
 
 ## LAT-24 · 损坏点阵网格：单位、拓扑和孔道保持的可复现修复
 
@@ -653,8 +653,8 @@ LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚
 
 ### 实际输入附件
 
-- [fixtures/LAT-24/damaged_lattice.obj](../fixtures/LAT-24/damaged_lattice.obj) · SHA256 `ca203960838d02c9c7ee1383fd9d30393908dcda10c512528dc928fc0e67eadd`
-- [fixtures/LAT-24/input_metadata.json](../fixtures/LAT-24/input_metadata.json) · SHA256 `dca4f8d5097802b60560fe9e9f96e179de8681c545db29f46f6274afebd2c591`
+- [fixtures/LAT-24/damaged_lattice.obj](../fixtures/LAT-24/damaged_lattice.obj) · SHA256 `ca203960838d02c9c7ee1383fd9d30393908dcda10c512528dc928fc0e67eadd` · 自第1轮可见
+- [fixtures/LAT-24/input_metadata.json](../fixtures/LAT-24/input_metadata.json) · SHA256 `dca4f8d5097802b60560fe9e9f96e179de8681c545db29f46f6274afebd2c591` · 自第1轮可见
 
 ### 交付
 
@@ -731,4 +731,4 @@ LAT-21—24单独计分。要求实际几何、求解与操作记录，数值锚
 }
 ```
 
-研究背景：[S03](https://link.springer.com/article/10.1007/s00170-026-19103-4)；[S11](https://arxiv.org/abs/2609.33598)。
+来源与适用范围：[S03](https://link.springer.com/article/10.1007/s00170-026-19103-4)；[S11](https://arxiv.org/abs/2609.33598)。

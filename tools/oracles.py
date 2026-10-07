@@ -1,4 +1,4 @@
-"""Independent formula oracles for synthetic scalar anchors, not CAD certification."""
+"""Independent scalar oracles for synthetic and database-backed cases, not certification."""
 import itertools
 import math
 
@@ -32,7 +32,10 @@ def gaussian_solve(matrix, rhs):
 
 def oracle(c):
     i=int(c["id"].split("-")[1]); d=c["inputs"]
-    if i>20:
+    if c.get("track")=="engineering_application":
+        from engineering_oracles import oracle as engineering_oracle
+        return engineering_oracle(c)
+    if c.get("track")=="research_challenge" or 21<=i<=24:
         from challenge_oracles import oracle as challenge_oracle
         return challenge_oracle(c)
     if i==1:

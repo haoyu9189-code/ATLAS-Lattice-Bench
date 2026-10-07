@@ -1333,5 +1333,481 @@
       "surface_fidelity_checked": false,
       "not_a_complete_acceptance": true
     }
+  },
+  "LAT-25": {
+    "numeric": {
+      "effective_modulus_MPa": {
+        "value": 52.62959129239432,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "stiffness_N_per_mm": {
+        "value": 1315.7397823098581,
+        "unit": "N/mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "offset_yield_force_N": {
+        "value": 733.0994997530588,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "offset_yield_displacement_mm": {
+        "value": 0.6905300000000001,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "screening_allowable_N": {
+        "value": 488.73299983537254,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "displacement_load1_mm": {
+        "value": 0.08812408738218157,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "displacement_load2_mm": {
+        "value": 0.3558488229475341,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "displacement_load3_mm": {
+        "value": 0.773807617427567,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "absorbed_energy_J": {
+        "value": 5.8813233949808215,
+        "unit": "J",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "load3_yield_ratio": {
+        "value": 1.091257053468835,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "800 N高于保存的整体偏移屈服力，曲线仍可估算对应位移，但不能据此证明实际服役安全或局部塑性起始。",
+      "curve是完整估算曲线，保存512点；真实材料/边界等效性未确认，SEA为空。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-26": {
+    "numeric": {
+      "feasible_count": {
+        "value": 2.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "selected_stiffness_N_per_mm": {
+        "value": 1542.527082652,
+        "unit": "N/mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "selected_offset_yield_force_N": {
+        "value": 810.6522392452127,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "selected_displacement_mm": {
+        "value": 0.25931473391851073,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "selected_yield_margin": {
+        "value": 0.35108706540868795,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "可行候选为Auxetic和Octet_truss；最小可行刚度者Auxetic_5_0p4_4__N5。",
+      "N5 density/SEA缺失，不可用density_n1计算精确阵列质量；BCC还是extrapolated_ratio，应在证据表中区分。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-27": {
+    "numeric": {
+      "target_cell_count": {
+        "value": 512.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "nominal_area_mm2": {
+        "value": 1600.0,
+        "unit": "mm^2",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "proxy_stiffness_N_per_mm": {
+        "value": 2105.183651695773,
+        "unit": "N/mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "proxy_yield_force_N": {
+        "value": 1876.7347193678304,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "sensitivity_low_allowable_N": {
+        "value": 1126.0408316206983,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "sensitivity_high_displacement_mm": {
+        "value": 0.3166786261757503,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "reference_E_relative_change": {
+        "value": 0.023243062914947394,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "reference_yield_relative_change": {
+        "value": 0.026457320651928407,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "bcc_direct_n5_count": {
+        "value": 0.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "Kelvin参考相邻变化小于5%并不能证明任意参数、任意N>5同样收敛。",
+      "BCC只有直接N1/N2/N4，N5参数行不是直接N5证据；目标N5本身也是迁移估计。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-28": {
+    "numeric": {
+      "initial_displacement_mm": {
+        "value": 0.21656178062700024,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "initial_left_force_N": {
+        "value": 284.9389500988045,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "initial_allowable_N": {
+        "value": 1715.2200485960273,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "upgraded_original_left_force_N": {
+        "value": 626.86569021737,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "upgraded_original_margin": {
+        "value": -0.22035452336544215,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "revised_displacement_mm": {
+        "value": 0.3331435249096792,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "revised_allowable_N": {
+        "value": 2745.860454210018,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "revised_margin": {
+        "value": 0.24811838827728083,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "升级前后的所有裕度均是同一初筛模型中的代理阈值，不能称为真实塑性崩塌载荷。",
+      "第一轮只收到1000 N；第二轮不得回改首轮状态或声称提前知道新载荷。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-29": {
+    "numeric": {
+      "section_modulus_mm3": {
+        "value": 2604.1666666666665,
+        "unit": "mm^3",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "nominal_stress_MPa": {
+        "value": 0.8,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "max_edge_stress_MPa": {
+        "value": 1.3760000000000001,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "min_edge_stress_MPa": {
+        "value": 0.22399999999999998,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "screening_allowable_N": {
+        "value": 489.83111555928895,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "yield_margin": {
+        "value": -0.020337768881422247,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "kern_limit_mm": {
+        "value": 4.166666666666667,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "secondary_min_edge_stress_MPa": {
+        "value": -0.3520000000000001,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "e=3 mm时带安全系数的最大边缘应力略高于该记录偏移屈服指标，初筛不满足；这不是局部杆件屈服预测。",
+      "均质F/A±M/Z只是声明的简化筛查，现有轴压全局曲线不建立弯曲强度或局部FE场。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-30": {
+    "numeric": {
+      "nominal_yield_margin": {
+        "value": 0.08607333296749453,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "low_radius_mm": {
+        "value": 0.38,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "high_radius_mm": {
+        "value": 0.42000000000000004,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "low_stiffness_N_per_mm": {
+        "value": 1112.2707499772657,
+        "unit": "N/mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "low_offset_yield_force_N": {
+        "value": 586.6968909364285,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "worst_yield_margin": {
+        "value": -0.1308194208349207,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "best_yield_margin": {
+        "value": 0.4005413497911432,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "required_nominal_radius_mm": {
+        "value": 0.4120630513045258,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "名义半径筛查可通过，但最不利半径筛查不通过，需增大名义尺寸或降低载荷。",
+      "±.02 mm为合成工况参数，数据库E/屈服值为真实导出记录中的估算值；两类来源不能混写。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-31": {
+    "numeric": {
+      "normalized_modulus": {
+        "value": 0.03508639419492955,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "elastic_scale_factor": {
+        "value": 1.7333333333333334,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "target_effective_modulus_MPa": {
+        "value": 91.22462490681683,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "target_stiffness_N_per_mm": {
+        "value": 2280.6156226704206,
+        "unit": "N/mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "elastic_displacement_mm": {
+        "value": 0.17539123911272325,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "mass_ratio_for_identical_geometry": {
+        "value": 1.188118811881188,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "结构弹性归一化特性可在题设条件下迁移，但塑性/屈曲/损伤机制不由E比例确定。",
+      "PA12标签仅是用户确认的仿真族注释；原始solid E/grade等缺失，客户1500 MPa不能反写成数据库已知值。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
+  },
+  "LAT-32": {
+    "numeric": {
+      "calibration_factor": {
+        "value": 1.0598658575169038,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "predicted_n5_sigma20_MPa": {
+        "value": 6.733296352313881,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "observed_n5_sigma20_MPa": {
+        "value": 7.801262836917876,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "validation_relative_error": {
+        "value": 0.13689661621834637,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "validation_bias_MPa": {
+        "value": -1.0679664846039945,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "observed_n5_sample_sd_MPa": {
+        "value": 2.1295814613221724,
+        "unit": "MPa",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "calibration_specimen_count": {
+        "value": 4.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "validation_specimen_count": {
+        "value": 4.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "N4和N5各4试件，反馈是真实实验；预测可被留出数据推翻，不能删掉偏差大或不通过结果。",
+      "材料、杆径、slider未知；同拓扑同批次不能证明选中r=.4 slider4 PA12结构已经实验验证。"
+    ],
+    "review_notes": [
+      "公开开发题，不是保留集；同一证据版本和共同工具预算下比较。",
+      "参考值由独立公式/积分得到，是条件估算的检查值，不是新增实验或FE真值。",
+      "数据库工具有优势需经实测；来源可追溯与交付质量分别评分，不预设ATLAS获胜。"
+    ]
   }
 }

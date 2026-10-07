@@ -1,22 +1,23 @@
 {
   "name": "ATLAS-Lattice-Bench",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "released_on": "2026-10-07",
   "research_cutoff": "2026-10-07",
   "language": "zh-CN",
-  "case_count": 24,
-  "source_count": 13,
+  "case_count": 32,
+  "source_count": 14,
   "status": "authored_and_offline_checked_not_model_benchmarked",
-  "data_origin": "original_synthetic_fixtures_not_experimental_measurements",
+  "data_origin": "mixed_original_synthetic_cases_and_atlas_database_snapshot_with_synthetic_engineering_scenarios",
   "split": "public_development",
   "heldout_cases_created": false,
   "model_runs_completed": 0,
   "cad_reference_artifacts_generated": false,
   "input_mesh_fixture_generated_and_checked": true,
   "challenge_end_to_end_model_runs": 0,
+  "engineering_end_to_end_model_runs": 0,
   "planned_comparison": {
-    "baseline_model": "gpt-6-sol",
-    "atlas_model": "gpt-6-sol",
+    "baseline_model": "gpt-6.1-sol",
+    "atlas_model": "gpt-6.1-sol",
     "reasoning_effort": "high",
     "actual_runtime_high_verified": false,
     "baseline_track": "matched_information_tools_and_budget_proposed_not_frozen",
@@ -73,6 +74,20 @@
       ],
       "aggregation": "four_cases_equal_weight_separate_scoreboard",
       "task_runs_at_three_repetitions_two_arms": 24
+    },
+    "engineering_application": {
+      "case_ids": [
+        "LAT-25",
+        "LAT-26",
+        "LAT-27",
+        "LAT-28",
+        "LAT-29",
+        "LAT-30",
+        "LAT-31",
+        "LAT-32"
+      ],
+      "aggregation": "cases_equal_weight_separate_scoreboard",
+      "task_runs_at_three_repetitions_two_arms": 48
     }
   },
   "combined_score_defined": false,

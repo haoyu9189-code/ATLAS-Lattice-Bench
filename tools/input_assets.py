@@ -32,4 +32,5 @@ def export_assets(assets,output_dir,root=ROOT):
     for source,destination in pending:
         destination.parent.mkdir(parents=True,exist_ok=True)
         if source!=destination: shutil.copyfile(source,destination)
-    return [{"path":"assets/"+p.name,"sha256":a["sha256"],"role":"candidate_input"} for a,(p,_) in zip(assets,pending)]
+    return [{"path":"assets/"+p.name,"sha256":a["sha256"],"role":"candidate_input",
+             **({"source_path":a["path"]} if "source_path" in a else {})} for a,(p,_) in zip(assets,pending)]

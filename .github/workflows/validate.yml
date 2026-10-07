@@ -15,4 +15,4 @@ jobs:
       - run: python tools/validate.py
       - run: python -m unittest discover -s tests -v
       - run: python tools/render_docs.py
-      - run: git diff --exit-code -- docs/QUESTIONS.zh-CN.md docs/REFERENCE.zh-CN.md docs/CHALLENGES.zh-CN.md
+      - run: git diff --exit-code -- docs/QUESTIONS.zh-CN.md docs/REFERENCE.zh-CN.md docs/CHALLENGES.zh-CN.md docs/ENGINEERING.zh-CN.md

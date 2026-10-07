@@ -1,6 +1,7 @@
 """Validate suite structure, scoring weights, and independent numerical oracles."""
 import json
 import math
+import re
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -41,16 +42,60 @@ def validate(cases,refs,rubrics,sources,manifest):
         if c.get("track")=="research_challenge":
             if not c.get("acceptance_contract") or not c.get("trial_budget") or not c.get("challenge_family"): errors.append(f"{cid}: incomplete challenge contract")
             if not refs.get(cid,{}).get("numeric"): errors.append(f"{cid}: missing independent numeric anchors")
-        for asset in c.get("input_assets",[]):
+        followups=c.get("followup_turns",[])
+        if not isinstance(followups,list):
+            errors.append(f"{cid}: followup_turns must be a list")
+            followups=[]
+        for index,turn in enumerate(followups,2):
+            if not isinstance(turn,dict) or type(turn.get("turn")) is not int or turn["turn"]!=index or not turn.get("prompt_zh") or not isinstance(turn.get("inputs_update"),dict) or not turn["inputs_update"]:
+                errors.append(f"{cid}: malformed scripted turn {index}")
+        assets=c.get("input_assets",[])
+        if len({asset.get("path") for asset in assets})!=len(assets):
+            errors.append(f"{cid}: duplicate input asset path")
+        for asset in assets:
+            available=asset.get("available_from_turn",1)
+            if type(available) is not int or not 1<=available<=len(followups)+1:
+                errors.append(f"{cid}: input asset has invalid available_from_turn")
             try: checked_asset(asset)
             except (ValueError,OSError) as exc: errors.append(f"{cid}: {exc}")
-        if not c["inputs"].get("synthetic"): errors.append(f"{cid}: missing synthetic label")
+        if c.get("track")=="engineering_application":
+            if c["inputs"].get("synthetic") is not False or c["inputs"].get("scenario_origin")!="synthetic":
+                errors.append(f"{cid}: engineering inputs require mixed real-data/synthetic-scenario labels")
+            if not c.get("acceptance_contract") or not c.get("trial_budget") or not c.get("engineering_family"):
+                errors.append(f"{cid}: incomplete engineering contract")
+            if not refs.get(cid,{}).get("numeric"): errors.append(f"{cid}: missing independent numeric anchors")
+            provenance=c["inputs"].get("database_provenance",{})
+            if not isinstance(provenance,dict):
+                errors.append(f"{cid}: database_provenance must be an object")
+                provenance={}
+            if provenance.get("source_id") not in source_ids or provenance.get("source_id") not in c["source_ids"]:
+                errors.append(f"{cid}: database provenance source mismatch")
+            digest=provenance.get("snapshot_sha256","")
+            if not isinstance(digest,str) or not re.fullmatch(r"[0-9a-f]{64}",digest):
+                errors.append(f"{cid}: invalid database snapshot SHA256")
+            records=provenance.get("record_ids",[])
+            if not isinstance(records,list) or not records or not all(isinstance(record,str) and record for record in records):
+                errors.append(f"{cid}: database record_ids must be nonempty strings")
+                records=[]
+            if len(set(records))!=len(records): errors.append(f"{cid}: duplicate database record ID")
+            snapshots=[asset for asset in assets if asset.get("sha256")==digest and asset.get("available_from_turn",1)==1]
+            if len(snapshots)!=1:
+                errors.append(f"{cid}: snapshot must match one first-turn input asset")
+            else:
+                try:
+                    snapshot=json.loads(checked_asset(snapshots[0]).read_text(encoding="utf-8"))
+                    available_records=[record["id"] for record in snapshot["records"]]
+                    if len(set(available_records))!=len(available_records): errors.append(f"{cid}: duplicate snapshot record ID")
+                    if not set(records)<=set(available_records): errors.append(f"{cid}: database record absent from snapshot")
+                except (ValueError,OSError,KeyError,TypeError) as exc:
+                    errors.append(f"{cid}: invalid database snapshot: {exc}")
+        elif c["inputs"].get("synthetic") is not True:
+            errors.append(f"{cid}: missing synthetic label")
         if c["split"]!="public_development": errors.append(f"{cid}: public cases not a hidden test")
         if not set(c["source_ids"])<=source_ids or not c["source_ids"]: errors.append(f"{cid}: source mapping missing")
-        if c["stratum"]=="multiturn_constraints":
+        if c.get("track")=="core" and c["stratum"]=="multiturn_constraints":
             if len(c["followup_turns"])!=2: errors.append(f"{cid}: expected two followups")
             if "final" in c["inputs"]: errors.append(f"{cid}: future state leaked in initial inputs")
-            if any(t["turn"]!=i+2 or not t.get("inputs_update") for i,t in enumerate(c["followup_turns"])): errors.append(f"{cid}: malformed scripted turn")
         if not c["required_deliverables"]: errors.append(f"{cid}: no deliverables")
         if cid not in rubrics or cid not in refs: continue
         dims=rubrics[cid]["criteria"]
@@ -59,7 +104,11 @@ def validate(cases,refs,rubrics,sources,manifest):
             if sum(item["points"] for item in checks)!=100: errors.append(f"{cid}/{metric}: checks !=100")
             if len({item["id"] for item in checks})!=len(checks): errors.append(f"{cid}/{metric}: duplicate check ID")
         if not rubrics[cid]["fatal_errors"] or not refs[cid]["assertions"]: errors.append(f"{cid}: missing manual review")
-        values=oracle(c); numeric=refs[cid]["numeric"]
+        try: values=oracle(c)
+        except (ValueError,KeyError,TypeError,OSError,ZeroDivisionError) as exc:
+            errors.append(f"{cid}: oracle rejected inputs: {exc}")
+            values={}
+        numeric=refs[cid]["numeric"]
         if set(values)!=set(numeric) or set(numeric)!=set(c["numeric_output_schema"]): errors.append(f"{cid}: scalar key mismatch oracle={set(values)^set(numeric)}")
         for key,ref in numeric.items():
             count+=1
