@@ -1,10 +1,10 @@
 {
   "name": "ATLAS-Lattice-Bench",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "released_on": "2026-10-07",
   "research_cutoff": "2026-10-07",
   "language": "zh-CN",
-  "case_count": 20,
+  "case_count": 24,
   "source_count": 13,
   "status": "authored_and_offline_checked_not_model_benchmarked",
   "data_origin": "original_synthetic_fixtures_not_experimental_measurements",
@@ -12,6 +12,8 @@
   "heldout_cases_created": false,
   "model_runs_completed": 0,
   "cad_reference_artifacts_generated": false,
+  "input_mesh_fixture_generated_and_checked": true,
+  "challenge_end_to_end_model_runs": 0,
   "planned_comparison": {
     "baseline_model": "gpt-6-sol",
     "atlas_model": "gpt-6-sol",
@@ -35,6 +37,45 @@
     "multiturn_constraints",
     "failure_recovery"
   ],
+  "tracks": {
+    "core": {
+      "case_ids": [
+        "LAT-01",
+        "LAT-02",
+        "LAT-03",
+        "LAT-04",
+        "LAT-05",
+        "LAT-06",
+        "LAT-07",
+        "LAT-08",
+        "LAT-09",
+        "LAT-10",
+        "LAT-11",
+        "LAT-12",
+        "LAT-13",
+        "LAT-14",
+        "LAT-15",
+        "LAT-16",
+        "LAT-17",
+        "LAT-18",
+        "LAT-19",
+        "LAT-20"
+      ],
+      "aggregation": "original_five_strata_equal_weight",
+      "task_runs_at_three_repetitions_two_arms": 120
+    },
+    "research_challenge": {
+      "case_ids": [
+        "LAT-21",
+        "LAT-22",
+        "LAT-23",
+        "LAT-24"
+      ],
+      "aggregation": "four_cases_equal_weight_separate_scoreboard",
+      "task_runs_at_three_repetitions_two_arms": 24
+    }
+  },
+  "combined_score_defined": false,
   "license": "MIT",
   "third_party_sources": "bibliographic_links_only_original_source_licenses_apply"
 }

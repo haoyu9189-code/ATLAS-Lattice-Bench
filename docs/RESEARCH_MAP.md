@@ -34,3 +34,9 @@ LAT-18另外考查工程agent交付可靠性，是软件工作流能力题；它
 - **S13** · 2005 · [不同连接方式的旋转矩形运动学](https://jngrima.com/wp-content/uploads/2017/11/grima-et-al-2005-on-the-auxetic-properties-of-rotating-rectangles-with-different-connectivity.pdf)。经典基础文献，DOI `10.1143/JPSJ.74.2866`；读取作者托管的已发表PDF。
 
 完整题名、DOI、发表/版本日期、访问层级、支持范围及限制见[sources.json](../sources.json)。未分发论文全文或实验表格。
+
+## v0.2研究挑战与外部参照
+
+LAT-21将自由形/异构设计转为带孔和接口的真实几何任务；LAT-22要求非线性杆系的实际设计求解闭环；LAT-23把多功能约束转为限定模型无解证明和授权改型；LAT-24要求实际损坏网格修复。这些任务单独计分，尚未测量模型区分度。
+
+已有ISO/ASTM方法标准以及MetaBench、MetamatBench研究协议另见[已有标准与公开基准](STANDARDS.md)。本库暂未复现外部数据集；13条研究来源卡、外部方法标准和公开benchmark引用分别记录，不能混称为本项目已完成的实验依据。

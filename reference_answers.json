@@ -1022,5 +1022,316 @@
       "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
       "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
     ]
+  },
+  "LAT-21": {
+    "numeric": {
+      "dense_design_domain_volume_mm3": {
+        "value": 20798.85133123815,
+        "unit": "mm^3",
+        "abs_tol": 1e-05,
+        "rel_tol": 1e-06
+      },
+      "mandatory_plates_volume_mm3": {
+        "value": 3492.07338423561,
+        "unit": "mm^3",
+        "abs_tol": 1e-05,
+        "rel_tol": 1e-06
+      },
+      "mandatory_plates_mass_g": {
+        "value": 3.561914851920322,
+        "unit": "g",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-06
+      },
+      "mass_budget_equivalent_total_solid_volume_mm3": {
+        "value": 7843.137254901961,
+        "unit": "mm^3",
+        "abs_tol": 1e-05,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "各禁入圆柱互不相交且处于所有 z 截面的外圆内，也不与半径 6 的中心孔相交。面积扣除项为 π(36+4×1.6²+1.8²)=49.48π。",
+      "令 F(z)=400z−(10/3)z²+z³/108，则密实设计域体积为 π[F(24)−49.48×24]=6620.48π。",
+      "两板体积为 π[F(2)−49.48×2+F(24)−F(22)−49.48×2]；这只是强制材料的解析下界，不是已经实现的点阵解。",
+      "实际质量=导出实体体积(mm³)×1.02/1000；不得把外包络体积或三角面面积当作实体体积。",
+      "低于理论质量下界不证明几何合格；必须同时保留接口并独立检查布尔误差、孔、连通性与局部特征。",
+      "相同参数的细网格导出属于收敛检查，不算第二个设计候选。"
+    ],
+    "review_notes": [
+      "所有输入是原创合成工程约束；引用文献仅说明研究动机，不提供本题可行性或最优性保证。",
+      "作者只推导解析体积基准；尚未生成参考 CAD、验证最小特征或完成该设计任务，因此不得称为预验证可行的几何金标准。",
+      "此为公开开发挑战，不是未见盲测；公开答案和评分规则不能用于支持独立泛化结论。",
+      "采样最小厚度不是全局数学证书。评分需同时审阅解析设计约束、独立测量覆盖与误差，证据不足的部分保留待验证状态。"
+    ]
+  },
+  "LAT-22": {
+    "numeric": {
+      "node_count": {
+        "value": 25,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "edge_count": {
+        "value": 56,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "free_dof_count": {
+        "value": 30,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "coarse_load_point_count": {
+        "value": 41,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "refined_load_point_count": {
+        "value": 81,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "undeformed_energy_N_mm": {
+        "value": 0,
+        "unit": "N mm",
+        "abs_tol": 1e-10,
+        "rel_tol": 1e-05
+      },
+      "undeformed_reaction_N": {
+        "value": 0,
+        "unit": "N",
+        "abs_tol": 1e-10,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "The analytic anchors are graph/zero-state sanity checks, not an optimized solution oracle or proof that a submitted CAD model was generated.",
+      "The exact energy derivative supplies axial force and geometric tangent terms; omitting the latter changes equilibrium stability and is incorrect.",
+      "A correct coarse curve alone does not satisfy the required independent refined solve, gradient check, artifact inspection or budget contract.",
+      "The strongest result requires actual curve fitting and verified artifacts. An honest failed or partially improved result can earn applicable component points but cannot set target_met=true.",
+      "A fused 3D CAD representation and a frictionless pin-joint axial model are different mechanical idealizations; the CAD union does not establish continuum performance."
+    ],
+    "review_notes": [
+      "This is a public development challenge. The author has numerically probed the fixture for feasibility; authoring/probe success is not a model-evaluation result, and no full CAD delivery has been graded.",
+      "No final optimized parameter vector or force-curve oracle is published here. The reviewer must rerun the submitted source and independently recompute declared measurements. Do not award success for matching a reference filename or prose claim.",
+      "S01 and S05 are research-context sources only; neither supplies the synthetic constitutive law, target numbers, optimized solution or an experimental validation for this fixture."
+    ]
+  },
+  "LAT-23": {
+    "numeric": {
+      "dense_box_volume_mm3": {
+        "value": 8000,
+        "unit": "mm^3",
+        "abs_tol": 0,
+        "rel_tol": 1e-06
+      },
+      "dense_box_mass_g": {
+        "value": 9.6,
+        "unit": "g",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "phi_lower_from_E": {
+        "value": 0.4,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "phi_lower_from_k": {
+        "value": 0.45,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "phi_upper_original_mass": {
+        "value": 0.3333333333333333,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "continuous_minimum_mass_g": {
+        "value": 4.32,
+        "unit": "g",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "authorized_mass_cap_g": {
+        "value": 4.35,
+        "unit": "g",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "authorized_mass_cap_increase_g": {
+        "value": 1.15,
+        "unit": "g",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "phi_upper_relaxed_mass": {
+        "value": 0.453125,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "phi_calibration_target": {
+        "value": 0.4515625,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "target_continuum_mass_g": {
+        "value": 4.335,
+        "unit": "g",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "target_continuum_E_syn_MPa": {
+        "value": 203.90869140625,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-06
+      },
+      "target_continuum_k_syn_W_mK": {
+        "value": 1.103125,
+        "unit": "W/(m*K)",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      },
+      "target_continuum_K_syn_mm2": {
+        "value": 0.8089947251290097,
+        "unit": "mm^2",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-06
+      }
+    },
+    "assertions": [
+      "质量=9.6φ g，因此原质量要求给出 φ≤1/3，而热导代理给出 φ≥0.45；这两个集合不相交，已经足够证明限定模型无解。",
+      "刚度代理还要求 φ≥0.4，但比热导代理弱；K_syn 在 (0,1) 内严格递减。在 φ∈[0.45,0.453125] 时 K_syn>0.6，所以质量放宽后确有代理可行区间。",
+      "保持所有其它条件后连续最小质量为 9.6×0.45=4.32 g；向上取 0.05 g 网格得到 4.35 g。4.30 g 给出 φ≤0.4479166667，仍违反 k_syn 要求，因此不是可行放宽。",
+      "对于本题精确简单立方杆系且 r<a/2，周期裁切盒的连续并集密度可用 q=r/a 的解析式 φ=3πq²−16(√2−1)q³交叉检查；交叉节点必须使用包含排除计数。该式在所给 r 区间单调增，目标对应 r≈1.2004626993 mm，存在于允许区间。",
+      "解析半径/体积分数用于校准与交叉检查，不能替代实际 STL 的导出、重读、连通/水密及误差检查。",
+      "E_syn、k_syn 和 K_syn 均为题设合成代理输出，不是 FEA、导热分析或渗透实测。"
+    ],
+    "review_notes": [
+      "解析目标并不意味着作者已完成 CAD 交付；本版本未生成或验证参考网格。",
+      "这道题故意让原约束冲突；难点还包括正确限定证书作用域、找最小授权放宽、真实布尔几何校准以及可信的代理/物理证据区分。",
+      "公开开发题不会作为密封盲测题。评分不得因一句诚实的无法完成就给几何交付满分，也不应因如实报告失败而触发虚构结果的致命错误。"
+    ]
+  },
+  "LAT-24": {
+    "numeric": {
+      "coordinate_scale_to_mm": {
+        "value": 1000,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "repaired_volume_mm3": {
+        "value": 864,
+        "unit": "mm^3",
+        "abs_tol": 0.5,
+        "rel_tol": 1e-05
+      },
+      "repaired_mass_g": {
+        "value": 0.88128,
+        "unit": "g",
+        "abs_tol": 0.0006,
+        "rel_tol": 1e-05
+      },
+      "repaired_euler_characteristic": {
+        "value": -54,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "repaired_components": {
+        "value": 1,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "真实读取文件并先转单位；不能把.012m当.012mm或把外部碎屑包围盒当主体设计尺寸。",
+      "重复面、退化面、局部缺面、反向面及外部小分量同时存在，不能只运行一次统一填洞就声称全部修好。",
+      "主体参考体积864mm³来自生成时的独立占用体素计数，不是对损坏开放网格有意义的体积测量。",
+      "Euler=-54且只有一个连通表面分量时对应28个把手，须与孔道和表面保持证据共同核对；同Euler数不证明同几何。"
+    ],
+    "review_notes": [
+      "已生成并校核合成损坏输入，以及作者端原始闭合网格的计数/拓扑；作者端干净网格不分发给模型。",
+      "尚未运行被测agent、尚未验证其修复输出；本题未模拟或测量真实材料性能。"
+    ],
+    "input_diagnostics": {
+      "vertices_used": 1466,
+      "triangles": 3037,
+      "edges": 4554,
+      "face_edge_components": 2,
+      "boundary_edges": 5,
+      "nonmanifold_edges": 7,
+      "inconsistent_winding_edges": 89,
+      "duplicate_triangles": 2,
+      "degenerate_triangles": 1,
+      "euler_characteristic": -51,
+      "bbox_min_mm": [
+        0,
+        0,
+        0
+      ],
+      "bbox_max_mm": [
+        14.2,
+        14.2,
+        14.2
+      ],
+      "bbox_size_mm": [
+        14.2,
+        14.2,
+        14.2
+      ],
+      "surface_area_mm2": 1512.2399999999998,
+      "signed_volume_mm3": 857.6746666666646,
+      "volume_usable_for_closed_oriented_mesh_only": false,
+      "self_intersection_checked": false,
+      "surface_fidelity_checked": false,
+      "not_a_complete_acceptance": true
+    },
+    "clean_fixture_diagnostics": {
+      "vertices_used": 1458,
+      "triangles": 3024,
+      "edges": 4536,
+      "face_edge_components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "inconsistent_winding_edges": 0,
+      "duplicate_triangles": 0,
+      "degenerate_triangles": 0,
+      "euler_characteristic": -54,
+      "bbox_min_mm": [
+        0,
+        0,
+        0
+      ],
+      "bbox_max_mm": [
+        12,
+        12,
+        12
+      ],
+      "bbox_size_mm": [
+        12,
+        12,
+        12
+      ],
+      "surface_area_mm2": 1512.0,
+      "signed_volume_mm3": 863.9999999999986,
+      "volume_usable_for_closed_oriented_mesh_only": true,
+      "self_intersection_checked": false,
+      "surface_fidelity_checked": false,
+      "not_a_complete_acceptance": true
+    }
   }
 }

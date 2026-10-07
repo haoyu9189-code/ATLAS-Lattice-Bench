@@ -9,9 +9,10 @@ from validate import load_suite,validate
 
 class OfflineContractTests(unittest.TestCase):
     def test_actual_suite(self):
-        errors,count=validate(*load_suite())
+        suite=load_suite();errors,count=validate(*suite)
         self.assertEqual(errors,[])
-        self.assertEqual(count,126)
+        self.assertEqual(count,156)
+        self.assertEqual(sum(len(suite[1][cid]["numeric"]) for cid in suite[4]["tracks"]["core"]["case_ids"]),126)
 
     def test_wrong_reference_is_detected_independently(self):
         cases,refs,rubrics,sources,manifest=load_suite()

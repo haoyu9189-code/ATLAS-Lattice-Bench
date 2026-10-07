@@ -2443,5 +2443,505 @@
       "数量级或单位错误实质改变设计取舍",
       "把缺失证据、合成值或估算值冒充已验证工程PASS"
     ]
+  },
+  "LAT-21": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "C1",
+          "criterion": "设计域、五个禁入圆柱与接口实体定义正确；四项解析基准和单位换算正确。",
+          "points": 20,
+          "pass": "全部数值与定义符合参考容差。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "关键定义或数值错误。"
+        },
+        {
+          "id": "C2",
+          "criterion": "独立检查水密性、连通性、保留接口和禁入区，布尔误差含不确定度且符合限值。",
+          "points": 30,
+          "pass": "实际文件的各项硬约束均经检查通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无可检查几何或未检查。"
+        },
+        {
+          "id": "C3",
+          "criterion": "最终质量和三个审查带的体积分数误差区间全部满足约束。",
+          "points": 25,
+          "pass": "实际重读结果及误差证明所有限值满足。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "只报告设计参数或名义质量。"
+        },
+        {
+          "id": "C4",
+          "criterion": "实际三维互连胞元、至少三层、最小特征及两级几何精度检查满足契约。",
+          "points": 25,
+          "pass": "检查充分、所有目标满足。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "以少量直柱/壳替代，或虚构完整检查。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "E1",
+          "criterion": "区分合成输入、解析基准、真实导出测量和待验证工程性质。",
+          "points": 25,
+          "pass": "四类证据明确区分。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "将设定或推断写成实测。"
+        },
+        {
+          "id": "E2",
+          "criterion": "所有运行和文件声明均能通过路径、SHA256、命令和日志定位。",
+          "points": 25,
+          "pass": "完整对应真实交付物。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "主要声明无法对应文件/日志。"
+        },
+        {
+          "id": "E3",
+          "criterion": "保留至少两个真实候选包括失败记录，比较约束与质量并说明选择，无全局最优夸大。",
+          "points": 25,
+          "pass": "候选记录可复查且结论适度。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "虚构候选或宣称无证据最优。"
+        },
+        {
+          "id": "E4",
+          "criterion": "报告网格和特征检查的误差、覆盖、工具限制，不宣称力学或工艺认证。",
+          "points": 25,
+          "pass": "限制准确且不越界。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "把几何交付当成已验证承载/制造性能。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "D1",
+          "criterion": "参数化源文件可运行，依赖和入口清晰并能重现最终模型。",
+          "points": 25,
+          "pass": "独立运行成功。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "占位或缺失。"
+        },
+        {
+          "id": "D2",
+          "criterion": "最终和至少一个不同候选的真实 STL 可打开、非空，与记录一致。",
+          "points": 25,
+          "pass": "均真实可用。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无可用文件。"
+        },
+        {
+          "id": "D3",
+          "criterion": "geometry_report.json 和 feature_audit.json 机器可读，包含契约要求的结果、误差和状态。",
+          "points": 25,
+          "pass": "字段与实际证据完整对应。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无有效报告。"
+        },
+        {
+          "id": "D4",
+          "criterion": "候选日志、收敛记录和最终约束表可直接用于复现/复核。",
+          "points": 25,
+          "pass": "实际文件齐全且结论一目了然。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "只有叙述不能复现。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "U1",
+          "criterion": "直接采用完整给定的接口、材料密度和质量预算，不反复索取已有参数。",
+          "points": 35,
+          "pass": "无可避免的重复追问。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "反复追问或不能继续。"
+        },
+        {
+          "id": "U2",
+          "criterion": "一个命令重现源文件到最终检查，明确输出目录和依赖。",
+          "points": 35,
+          "pass": "无需用户拼接步骤。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "要求用户自行拼装流程。"
+        },
+        {
+          "id": "U3",
+          "criterion": "直接呈现每项约束、最终参数、失败和待验证事项。",
+          "points": 30,
+          "pass": "无需用户合并分散信息。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "没有最终状态。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "虚构候选、CAD 文件、重读检查或实际运行结果。",
+      "明知孔、接口、质量或特征约束违反仍宣称全部通过。",
+      "把未验证几何直接宣布为力学、疲劳或实际制造已合格。"
+    ]
+  },
+  "LAT-22": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "C1",
+          "criterion": "Graph, zero-state anchors, force/energy derivatives, 30 free DOFs and signed reactions are correct; full geometric tangent is included.",
+          "points": 30,
+          "pass": "All verified by executable checks.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Wrong model/units/BCs, missing geometric tangent, or no actual solve."
+        },
+        {
+          "id": "C2",
+          "criterion": "All accepted coarse and fine steps satisfy equilibrium/stability; independent refinement and scalar-energy finite differences meet their thresholds.",
+          "points": 35,
+          "pass": "Every required check passes with inspectable traces.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "No real numerical equilibrium evidence, hidden failed steps or fabricated convergence."
+        },
+        {
+          "id": "C3",
+          "criterion": "Within budget, selected coarse/fine NRMSE<=0.03 and coarse error reduction>=30%; final geometry corresponds to the selected radii.",
+          "points": 35,
+          "pass": "All three performance conditions and geometry consistency pass.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "No verified improvement, incorrect objective, violated bounds/budget, or target-only curve substituted."
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "E1",
+          "criterion": "Every model/solver/CAD execution claim maps to files and reproducible commands; all attempts and failures are retained.",
+          "points": 40,
+          "pass": "Complete trace with no unsupported execution claim.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Fabricated outputs or deleted adverse attempts."
+        },
+        {
+          "id": "E2",
+          "criterion": "Clearly identifies synthetic axial law, target data and pin-joint/CAD mismatch; does not claim continuum FEA, material calibration, printing or experiments.",
+          "points": 30,
+          "pass": "All distinctions clear and consistent.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Research context or toy model is presented as real validated structural performance."
+        },
+        {
+          "id": "E3",
+          "criterion": "Reports actual baseline, objective, improvement, refinement discrepancies, branch changes and target_met without invented optimum or unjustified PASS.",
+          "points": 30,
+          "pass": "All claims recompute and acceptance decision follows evidence.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Wrong metrics materially change the conclusion or unsupported target_met=true."
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "D1",
+          "criterion": "Source, dependencies, graph/design data and complete traces reproduce offline in the documented command sequence.",
+          "points": 35,
+          "pass": "Clean reproduction succeeds.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Only a plan, pseudocode, screenshot or inaccessible dependency is delivered."
+        },
+        {
+          "id": "D2",
+          "criterion": "Actual selected_lattice.stl reopens as one connected watertight positive-volume body; generator and edge/radius data match the selected design.",
+          "points": 35,
+          "pass": "Independent artifact checks pass.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Missing/unreadable geometry, false extension, or different parameter design."
+        },
+        {
+          "id": "D3",
+          "criterion": "Fresh-process refined execution, derivative checks and a concise result with actual unmet targets are delivered in machine-readable and human-readable form.",
+          "points": 30,
+          "pass": "All required reports consistent and inspectable.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "No independent recheck or numerical results cannot be inspected."
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "U1",
+          "criterion": "Completes the specified local solve and CAD workflow without requesting already supplied parameters, private databases, API keys or a commercial solver.",
+          "points": 35,
+          "pass": "No avoidable user handoff.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Returns executable work to the user without a genuine environment blocker."
+        },
+        {
+          "id": "U2",
+          "criterion": "Uses bounded, logged retries and responds to solver failures with a concrete diagnosis while preserving the original constraints.",
+          "points": 35,
+          "pass": "Failures handled transparently within declared limits.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "Silent model changes, endless/unlogged search or fabricated recovery."
+        },
+        {
+          "id": "U3",
+          "criterion": "Clearly states achieved quality, reproducibility command and the remaining limitation; does not ask the user to perform routine file verification.",
+          "points": 30,
+          "pass": "Ready-to-review evidence and precise decision provided.",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "No actionable deliverable or misleading success summary."
+        }
+      ]
+    },
+    "fatal_errors": [
+      "Fabricating an executed numerical solve, converged trace, independent recheck, CAD artifact or source.",
+      "Materially wrong force/length/energy units or invented continuum/experimental validation used to claim engineering acceptance.",
+      "Reporting target_met=true while required equilibrium, budget, refinement, geometric or numerical target conditions are unverified or failed."
+    ]
+  },
+  "LAT-23": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "C1",
+          "criterion": "从质量和热导代理推导不相交的 φ 区间，限定无解证书作用域。",
+          "points": 20,
+          "pass": "界限、单位及模型范围全正确。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "仅靠搜索失败断言无解或数值错误。"
+        },
+        {
+          "id": "C2",
+          "criterion": "正确推导连续质量下界及授权网格上的最小质量上限，保留其他约束并验证代理可行区间。",
+          "points": 20,
+          "pass": "最小性和其它约束均正确。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "错改约束或放宽仍无解。"
+        },
+        {
+          "id": "C3",
+          "criterion": "实际生成规定的 75 圆柱并集/裁切模型；单一连通分量、水密、边界和最小杆径符合要求。",
+          "points": 30,
+          "pass": "实际重读检查均通过。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无模型或拓扑/体积方法错误。"
+        },
+        {
+          "id": "C4",
+          "criterion": "通过真实几何校准和两级精度误差区间证明最终质量、E_syn、k_syn 和 K_syn 全部通过。",
+          "points": 30,
+          "pass": "全部区间通过且用实际导出体积计算。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "只用名义体积/解析参数报告通过。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "E1",
+          "criterion": "明确无解证书只适用规定模型，不外推为所有 lattice 无解。",
+          "points": 25,
+          "pass": "作用域准确明确。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无依据全球/任意拓扑无解断言。"
+        },
+        {
+          "id": "E2",
+          "criterion": "清楚区分合成代理、连续解析、实际几何结果和未执行物理验证。",
+          "points": 25,
+          "pass": "所有性能和文件声明证据分明。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "将代理写成物理仿真或试验。"
+        },
+        {
+          "id": "E3",
+          "criterion": "至少两个不同半径实际候选的日志、文件和体积可核对，保留失败记录。",
+          "points": 25,
+          "pass": "记录真实完整。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "虚构迭代或候选。"
+        },
+        {
+          "id": "E4",
+          "criterion": "最终几何误差和代理区间有重读、精度/工具版本及失败状态支持。",
+          "points": 25,
+          "pass": "可独立复查且无夸大。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "结果无法追溯。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "D1",
+          "criterion": "提供可执行参数化源文件、依赖、命令和锁定最终半径。",
+          "points": 25,
+          "pass": "独立复现成功。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "源文件缺失或占位。"
+        },
+        {
+          "id": "D2",
+          "criterion": "最终真实 STL 可重读、非空、与记录一致。",
+          "points": 25,
+          "pass": "几何文件可用并符合模型。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无真实几何交付。"
+        },
+        {
+          "id": "D3",
+          "criterion": "两个决策证书 JSON 及候选日志完整、机器可读且数值一致。",
+          "points": 25,
+          "pass": "齐全可复核。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "只给无证书结论。"
+        },
+        {
+          "id": "D4",
+          "criterion": "最终报告包含几何测量、误差区间、代理响应和所有约束状态。",
+          "points": 25,
+          "pass": "与真实文件和日志完整对应。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "无可复核结果。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "U1",
+          "criterion": "识别已授权的最小质量放宽并直接重建，不要求用户重复决定已规定的规则。",
+          "points": 35,
+          "pass": "自主按规则完成。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "反复确认或擅自换规则。"
+        },
+        {
+          "id": "U2",
+          "criterion": "一个入口完成原问题诊断、放宽和几何复现。",
+          "points": 35,
+          "pass": "无需用户拼接代码或猜参数。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "需要用户接手关键步骤。"
+        },
+        {
+          "id": "U3",
+          "criterion": "清楚交代原问题无解、放宽代价、实际完成状态和物理验证边界。",
+          "points": 30,
+          "pass": "结论集中明确。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "只有过程无决策。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "虚构 CAD、迭代日志、仿真或实际运行证据。",
+      "把合成代理响应声称为已验证真实材料刚度、导热或渗透性能。",
+      "暗中改变固定拓扑、材料或目标后声称满足原授权放宽。"
+    ]
+  },
+  "LAT-24": {
+    "criteria": {
+      "engineering_correctness": [
+        {
+          "id": "C1",
+          "criterion": "缺陷诊断来自输入文件；单位和主体/外部碎屑分离正确。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "C2",
+          "criterion": "实际修复后水密、定向一致、单分量、Euler=-54且设计孔道和未损坏表面保持。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "C3",
+          "criterion": "输出重读的体积/质量有可追溯测量，OBJ/STL一致且没有自交/缺失检查冒充通过。",
+          "points": 34,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        }
+      ],
+      "evidence_integrity": [
+        {
+          "id": "E1",
+          "criterion": "正确区分题设合成数据、给定模型计算与真实实验；不声称已做FEA、打印或物理测试。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "E2",
+          "criterion": "关键结论可追溯到本题输入字段、明确公式或指定文献；缺失量保持未知。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "E3",
+          "criterion": "明确题目特定的外推限制；不把筛查或计算符合解释为通用工程认证。",
+          "points": 34,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        }
+      ],
+      "usable_delivery": [
+        {
+          "id": "D1",
+          "criterion": "所有required_deliverables真实存在且能读取；文字和JSON结论相容。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "D2",
+          "criterion": "包含题目全部请求的结果、比较或失败说明；不以只写计划代替可完成的计算。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "D3",
+          "criterion": "JSON数值字段、单位与过程可复算；需其他产物时有实际文件和必要元数据。",
+          "points": 34,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        }
+      ],
+      "user_effort": [
+        {
+          "id": "U1",
+          "criterion": "不重复询问题目已给参数，不为离线计算索取API key或私有数据库权限。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "U2",
+          "criterion": "遇到题设缺失量先完成可做部分，明确缺口且不代用户猜测关键条件。",
+          "points": 33,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        },
+        {
+          "id": "U3",
+          "criterion": "直接给出题目所需选择/边界/下一步，避免把本可完成的整理和计算交还用户。",
+          "points": 34,
+          "pass": "满足本检查的全部明确要求，且证据可核对。",
+          "partial": "不使用半分：本检查为0或1；所有明确子条件满足才记1。遗漏情况在review_notes记录。",
+          "fail": "未满足、无可核验证据，或结论与输入矛盾。"
+        }
+      ]
+    },
+    "fatal_errors": [
+      "编造关键来源、已执行的试验/仿真或不存在的产物",
+      "数量级或单位错误实质改变设计取舍",
+      "把缺失证据、合成值或估算值冒充已验证工程PASS"
+    ]
   }
 }

@@ -1,0 +1,28 @@
+{
+  "synthetic": true,
+  "coordinate_unit": "m",
+  "output_coordinate_unit": "mm",
+  "design_envelope_mm": {
+    "min": [
+      0,
+      0,
+      0
+    ],
+    "max": [
+      12,
+      12,
+      12
+    ]
+  },
+  "mass_density_g_cm3": 1.02,
+  "import_status": "input has intentional geometry defects; no actual external solver was run",
+  "allowed_operations": [
+    "unit conversion",
+    "remove duplicated/zero-area faces",
+    "orient faces",
+    "remove disconnected debris wholly outside design envelope",
+    "local hole repair without closing designed pores"
+  ],
+  "max_repair_candidates": 3,
+  "note": "Do not treat OBJ coordinates as mm. Derive defects from actual input; metadata is not a clean reference mesh."
+}

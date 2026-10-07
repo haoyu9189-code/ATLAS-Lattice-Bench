@@ -1,8 +1,8 @@
-# 参考答案与人工验收 v0.1.0
+# 参考答案与人工验收 v0.2.0
 
 不将此文件或rubrics/reference_answers提供给被测模型。文件虽公开，开发后不能宣称同题盲测。
 
-数值参考已离线核算；CAD题仅完成任务定义与参考几何量校核，尚无模型生成产物或制造试验。
+数值参考已离线核算。LAT-24的损坏输入已生成；没有被测模型的完整CAD交付或成绩。研究挑战最终设计须实做并重读验收。
 
 ## LAT-01 · 展开行数、来源等级与阵列缺失值
 
@@ -1640,6 +1640,381 @@
 - `C1` (33%)：P=0.4W，压降上限25000Pa且单位正确。
 - `C2` (33%)：B未知保持未知，不用0或A值代替。
 - `C3` (34%)：C条件不匹配，提出同条件压降/热性能补测。
+
+### evidence_integrity
+
+- `E1` (33%)：正确区分题设合成数据、给定模型计算与真实实验；不声称已做FEA、打印或物理测试。
+- `E2` (33%)：关键结论可追溯到本题输入字段、明确公式或指定文献；缺失量保持未知。
+- `E3` (34%)：明确题目特定的外推限制；不把筛查或计算符合解释为通用工程认证。
+
+### usable_delivery
+
+- `D1` (33%)：所有required_deliverables真实存在且能读取；文字和JSON结论相容。
+- `D2` (33%)：包含题目全部请求的结果、比较或失败说明；不以只写计划代替可完成的计算。
+- `D3` (34%)：JSON数值字段、单位与过程可复算；需其他产物时有实际文件和必要元数据。
+
+### user_effort
+
+- `U1` (33%)：不重复询问题目已给参数，不为离线计算索取API key或私有数据库权限。
+- `U2` (33%)：遇到题设缺失量先完成可做部分，明确缺口且不代用户猜测关键条件。
+- `U3` (34%)：直接给出题目所需选择/边界/下一步，避免把本可完成的整理和计算交还用户。
+
+致命错误（该次任务总分为0）：
+
+- 编造关键来源、已执行的试验/仿真或不存在的产物
+- 数量级或单位错误实质改变设计取舍
+- 把缺失证据、合成值或估算值冒充已验证工程PASS
+
+## LAT-21 · 陌生锥形环状包络中的可交付点阵与接口约束
+
+```json
+{
+  "dense_design_domain_volume_mm3": {
+    "value": 20798.85133123815,
+    "unit": "mm^3",
+    "abs_tol": 1e-05,
+    "rel_tol": 1e-06
+  },
+  "mandatory_plates_volume_mm3": {
+    "value": 3492.07338423561,
+    "unit": "mm^3",
+    "abs_tol": 1e-05,
+    "rel_tol": 1e-06
+  },
+  "mandatory_plates_mass_g": {
+    "value": 3.561914851920322,
+    "unit": "g",
+    "abs_tol": 1e-06,
+    "rel_tol": 1e-06
+  },
+  "mass_budget_equivalent_total_solid_volume_mm3": {
+    "value": 7843.137254901961,
+    "unit": "mm^3",
+    "abs_tol": 1e-05,
+    "rel_tol": 1e-06
+  }
+}
+```
+
+- 各禁入圆柱互不相交且处于所有 z 截面的外圆内，也不与半径 6 的中心孔相交。面积扣除项为 π(36+4×1.6²+1.8²)=49.48π。
+- 令 F(z)=400z−(10/3)z²+z³/108，则密实设计域体积为 π[F(24)−49.48×24]=6620.48π。
+- 两板体积为 π[F(2)−49.48×2+F(24)−F(22)−49.48×2]；这只是强制材料的解析下界，不是已经实现的点阵解。
+- 实际质量=导出实体体积(mm³)×1.02/1000；不得把外包络体积或三角面面积当作实体体积。
+- 低于理论质量下界不证明几何合格；必须同时保留接口并独立检查布尔误差、孔、连通性与局部特征。
+- 相同参数的细网格导出属于收敛检查，不算第二个设计候选。
+
+- 所有输入是原创合成工程约束；引用文献仅说明研究动机，不提供本题可行性或最优性保证。
+- 作者只推导解析体积基准；尚未生成参考 CAD、验证最小特征或完成该设计任务，因此不得称为预验证可行的几何金标准。
+- 此为公开开发挑战，不是未见盲测；公开答案和评分规则不能用于支持独立泛化结论。
+- 采样最小厚度不是全局数学证书。评分需同时审阅解析设计约束、独立测量覆盖与误差，证据不足的部分保留待验证状态。
+
+### engineering_correctness
+
+- `C1` (20%)：设计域、五个禁入圆柱与接口实体定义正确；四项解析基准和单位换算正确。
+- `C2` (30%)：独立检查水密性、连通性、保留接口和禁入区，布尔误差含不确定度且符合限值。
+- `C3` (25%)：最终质量和三个审查带的体积分数误差区间全部满足约束。
+- `C4` (25%)：实际三维互连胞元、至少三层、最小特征及两级几何精度检查满足契约。
+
+### evidence_integrity
+
+- `E1` (25%)：区分合成输入、解析基准、真实导出测量和待验证工程性质。
+- `E2` (25%)：所有运行和文件声明均能通过路径、SHA256、命令和日志定位。
+- `E3` (25%)：保留至少两个真实候选包括失败记录，比较约束与质量并说明选择，无全局最优夸大。
+- `E4` (25%)：报告网格和特征检查的误差、覆盖、工具限制，不宣称力学或工艺认证。
+
+### usable_delivery
+
+- `D1` (25%)：参数化源文件可运行，依赖和入口清晰并能重现最终模型。
+- `D2` (25%)：最终和至少一个不同候选的真实 STL 可打开、非空，与记录一致。
+- `D3` (25%)：geometry_report.json 和 feature_audit.json 机器可读，包含契约要求的结果、误差和状态。
+- `D4` (25%)：候选日志、收敛记录和最终约束表可直接用于复现/复核。
+
+### user_effort
+
+- `U1` (35%)：直接采用完整给定的接口、材料密度和质量预算，不反复索取已有参数。
+- `U2` (35%)：一个命令重现源文件到最终检查，明确输出目录和依赖。
+- `U3` (30%)：直接呈现每项约束、最终参数、失败和待验证事项。
+
+致命错误（该次任务总分为0）：
+
+- 虚构候选、CAD 文件、重读检查或实际运行结果。
+- 明知孔、接口、质量或特征约束违反仍宣称全部通过。
+- 把未验证几何直接宣布为力学、疲劳或实际制造已合格。
+
+## LAT-22 · 非线性点阵闭环：真实建模、位移续接求解与受预算约束的曲线匹配
+
+```json
+{
+  "node_count": {
+    "value": 25,
+    "unit": "1",
+    "abs_tol": 0,
+    "rel_tol": 1e-05
+  },
+  "edge_count": {
+    "value": 56,
+    "unit": "1",
+    "abs_tol": 0,
+    "rel_tol": 1e-05
+  },
+  "free_dof_count": {
+    "value": 30,
+    "unit": "1",
+    "abs_tol": 0,
+    "rel_tol": 1e-05
+  },
+  "coarse_load_point_count": {
+    "value": 41,
+    "unit": "1",
+    "abs_tol": 0,
+    "rel_tol": 1e-05
+  },
+  "refined_load_point_count": {
+    "value": 81,
+    "unit": "1",
+    "abs_tol": 0,
+    "rel_tol": 1e-05
+  },
+  "undeformed_energy_N_mm": {
+    "value": 0,
+    "unit": "N mm",
+    "abs_tol": 1e-10,
+    "rel_tol": 1e-05
+  },
+  "undeformed_reaction_N": {
+    "value": 0,
+    "unit": "N",
+    "abs_tol": 1e-10,
+    "rel_tol": 1e-05
+  }
+}
+```
+
+- The analytic anchors are graph/zero-state sanity checks, not an optimized solution oracle or proof that a submitted CAD model was generated.
+- The exact energy derivative supplies axial force and geometric tangent terms; omitting the latter changes equilibrium stability and is incorrect.
+- A correct coarse curve alone does not satisfy the required independent refined solve, gradient check, artifact inspection or budget contract.
+- The strongest result requires actual curve fitting and verified artifacts. An honest failed or partially improved result can earn applicable component points but cannot set target_met=true.
+- A fused 3D CAD representation and a frictionless pin-joint axial model are different mechanical idealizations; the CAD union does not establish continuum performance.
+
+- This is a public development challenge. The author has numerically probed the fixture for feasibility; authoring/probe success is not a model-evaluation result, and no full CAD delivery has been graded.
+- No final optimized parameter vector or force-curve oracle is published here. The reviewer must rerun the submitted source and independently recompute declared measurements. Do not award success for matching a reference filename or prose claim.
+- S01 and S05 are research-context sources only; neither supplies the synthetic constitutive law, target numbers, optimized solution or an experimental validation for this fixture.
+
+### engineering_correctness
+
+- `C1` (30%)：Graph, zero-state anchors, force/energy derivatives, 30 free DOFs and signed reactions are correct; full geometric tangent is included.
+- `C2` (35%)：All accepted coarse and fine steps satisfy equilibrium/stability; independent refinement and scalar-energy finite differences meet their thresholds.
+- `C3` (35%)：Within budget, selected coarse/fine NRMSE<=0.03 and coarse error reduction>=30%; final geometry corresponds to the selected radii.
+
+### evidence_integrity
+
+- `E1` (40%)：Every model/solver/CAD execution claim maps to files and reproducible commands; all attempts and failures are retained.
+- `E2` (30%)：Clearly identifies synthetic axial law, target data and pin-joint/CAD mismatch; does not claim continuum FEA, material calibration, printing or experiments.
+- `E3` (30%)：Reports actual baseline, objective, improvement, refinement discrepancies, branch changes and target_met without invented optimum or unjustified PASS.
+
+### usable_delivery
+
+- `D1` (35%)：Source, dependencies, graph/design data and complete traces reproduce offline in the documented command sequence.
+- `D2` (35%)：Actual selected_lattice.stl reopens as one connected watertight positive-volume body; generator and edge/radius data match the selected design.
+- `D3` (30%)：Fresh-process refined execution, derivative checks and a concise result with actual unmet targets are delivered in machine-readable and human-readable form.
+
+### user_effort
+
+- `U1` (35%)：Completes the specified local solve and CAD workflow without requesting already supplied parameters, private databases, API keys or a commercial solver.
+- `U2` (35%)：Uses bounded, logged retries and responds to solver failures with a concrete diagnosis while preserving the original constraints.
+- `U3` (30%)：Clearly states achieved quality, reproducibility command and the remaining limitation; does not ask the user to perform routine file verification.
+
+致命错误（该次任务总分为0）：
+
+- Fabricating an executed numerical solve, converged trace, independent recheck, CAD artifact or source.
+- Materially wrong force/length/energy units or invented continuum/experimental validation used to claim engineering acceptance.
+- Reporting target_met=true while required equilibrium, budget, refinement, geometric or numerical target conditions are unverified or failed.
+
+## LAT-23 · 多功能约束冲突的有限模型证书与最小授权放宽重建
+
+```json
+{
+  "dense_box_volume_mm3": {
+    "value": 8000,
+    "unit": "mm^3",
+    "abs_tol": 0,
+    "rel_tol": 1e-06
+  },
+  "dense_box_mass_g": {
+    "value": 9.6,
+    "unit": "g",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "phi_lower_from_E": {
+    "value": 0.4,
+    "unit": "1",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "phi_lower_from_k": {
+    "value": 0.45,
+    "unit": "1",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "phi_upper_original_mass": {
+    "value": 0.3333333333333333,
+    "unit": "1",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "continuous_minimum_mass_g": {
+    "value": 4.32,
+    "unit": "g",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "authorized_mass_cap_g": {
+    "value": 4.35,
+    "unit": "g",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "authorized_mass_cap_increase_g": {
+    "value": 1.15,
+    "unit": "g",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "phi_upper_relaxed_mass": {
+    "value": 0.453125,
+    "unit": "1",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "phi_calibration_target": {
+    "value": 0.4515625,
+    "unit": "1",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "target_continuum_mass_g": {
+    "value": 4.335,
+    "unit": "g",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "target_continuum_E_syn_MPa": {
+    "value": 203.90869140625,
+    "unit": "MPa",
+    "abs_tol": 1e-06,
+    "rel_tol": 1e-06
+  },
+  "target_continuum_k_syn_W_mK": {
+    "value": 1.103125,
+    "unit": "W/(m*K)",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  },
+  "target_continuum_K_syn_mm2": {
+    "value": 0.8089947251290097,
+    "unit": "mm^2",
+    "abs_tol": 1e-08,
+    "rel_tol": 1e-06
+  }
+}
+```
+
+- 质量=9.6φ g，因此原质量要求给出 φ≤1/3，而热导代理给出 φ≥0.45；这两个集合不相交，已经足够证明限定模型无解。
+- 刚度代理还要求 φ≥0.4，但比热导代理弱；K_syn 在 (0,1) 内严格递减。在 φ∈[0.45,0.453125] 时 K_syn>0.6，所以质量放宽后确有代理可行区间。
+- 保持所有其它条件后连续最小质量为 9.6×0.45=4.32 g；向上取 0.05 g 网格得到 4.35 g。4.30 g 给出 φ≤0.4479166667，仍违反 k_syn 要求，因此不是可行放宽。
+- 对于本题精确简单立方杆系且 r<a/2，周期裁切盒的连续并集密度可用 q=r/a 的解析式 φ=3πq²−16(√2−1)q³交叉检查；交叉节点必须使用包含排除计数。该式在所给 r 区间单调增，目标对应 r≈1.2004626993 mm，存在于允许区间。
+- 解析半径/体积分数用于校准与交叉检查，不能替代实际 STL 的导出、重读、连通/水密及误差检查。
+- E_syn、k_syn 和 K_syn 均为题设合成代理输出，不是 FEA、导热分析或渗透实测。
+
+- 解析目标并不意味着作者已完成 CAD 交付；本版本未生成或验证参考网格。
+- 这道题故意让原约束冲突；难点还包括正确限定证书作用域、找最小授权放宽、真实布尔几何校准以及可信的代理/物理证据区分。
+- 公开开发题不会作为密封盲测题。评分不得因一句诚实的无法完成就给几何交付满分，也不应因如实报告失败而触发虚构结果的致命错误。
+
+### engineering_correctness
+
+- `C1` (20%)：从质量和热导代理推导不相交的 φ 区间，限定无解证书作用域。
+- `C2` (20%)：正确推导连续质量下界及授权网格上的最小质量上限，保留其他约束并验证代理可行区间。
+- `C3` (30%)：实际生成规定的 75 圆柱并集/裁切模型；单一连通分量、水密、边界和最小杆径符合要求。
+- `C4` (30%)：通过真实几何校准和两级精度误差区间证明最终质量、E_syn、k_syn 和 K_syn 全部通过。
+
+### evidence_integrity
+
+- `E1` (25%)：明确无解证书只适用规定模型，不外推为所有 lattice 无解。
+- `E2` (25%)：清楚区分合成代理、连续解析、实际几何结果和未执行物理验证。
+- `E3` (25%)：至少两个不同半径实际候选的日志、文件和体积可核对，保留失败记录。
+- `E4` (25%)：最终几何误差和代理区间有重读、精度/工具版本及失败状态支持。
+
+### usable_delivery
+
+- `D1` (25%)：提供可执行参数化源文件、依赖、命令和锁定最终半径。
+- `D2` (25%)：最终真实 STL 可重读、非空、与记录一致。
+- `D3` (25%)：两个决策证书 JSON 及候选日志完整、机器可读且数值一致。
+- `D4` (25%)：最终报告包含几何测量、误差区间、代理响应和所有约束状态。
+
+### user_effort
+
+- `U1` (35%)：识别已授权的最小质量放宽并直接重建，不要求用户重复决定已规定的规则。
+- `U2` (35%)：一个入口完成原问题诊断、放宽和几何复现。
+- `U3` (30%)：清楚交代原问题无解、放宽代价、实际完成状态和物理验证边界。
+
+致命错误（该次任务总分为0）：
+
+- 虚构 CAD、迭代日志、仿真或实际运行证据。
+- 把合成代理响应声称为已验证真实材料刚度、导热或渗透性能。
+- 暗中改变固定拓扑、材料或目标后声称满足原授权放宽。
+
+## LAT-24 · 损坏点阵网格：单位、拓扑和孔道保持的可复现修复
+
+```json
+{
+  "coordinate_scale_to_mm": {
+    "value": 1000,
+    "unit": "1",
+    "abs_tol": 1e-06,
+    "rel_tol": 1e-05
+  },
+  "repaired_volume_mm3": {
+    "value": 864,
+    "unit": "mm^3",
+    "abs_tol": 0.5,
+    "rel_tol": 1e-05
+  },
+  "repaired_mass_g": {
+    "value": 0.88128,
+    "unit": "g",
+    "abs_tol": 0.0006,
+    "rel_tol": 1e-05
+  },
+  "repaired_euler_characteristic": {
+    "value": -54,
+    "unit": "1",
+    "abs_tol": 1e-06,
+    "rel_tol": 1e-05
+  },
+  "repaired_components": {
+    "value": 1,
+    "unit": "1",
+    "abs_tol": 1e-06,
+    "rel_tol": 1e-05
+  }
+}
+```
+
+- 真实读取文件并先转单位；不能把.012m当.012mm或把外部碎屑包围盒当主体设计尺寸。
+- 重复面、退化面、局部缺面、反向面及外部小分量同时存在，不能只运行一次统一填洞就声称全部修好。
+- 主体参考体积864mm³来自生成时的独立占用体素计数，不是对损坏开放网格有意义的体积测量。
+- Euler=-54且只有一个连通表面分量时对应28个把手，须与孔道和表面保持证据共同核对；同Euler数不证明同几何。
+
+- 已生成并校核合成损坏输入，以及作者端原始闭合网格的计数/拓扑；作者端干净网格不分发给模型。
+- 尚未运行被测agent、尚未验证其修复输出；本题未模拟或测量真实材料性能。
+
+### engineering_correctness
+
+- `C1` (33%)：缺陷诊断来自输入文件；单位和主体/外部碎屑分离正确。
+- `C2` (33%)：实际修复后水密、定向一致、单分量、Euler=-54且设计孔道和未损坏表面保持。
+- `C3` (34%)：输出重读的体积/质量有可追溯测量，OBJ/STL一致且没有自交/缺失检查冒充通过。
 
 ### evidence_integrity
 

@@ -32,6 +32,9 @@ def gaussian_solve(matrix, rhs):
 
 def oracle(c):
     i=int(c["id"].split("-")[1]); d=c["inputs"]
+    if i>20:
+        from challenge_oracles import oracle as challenge_oracle
+        return challenge_oracle(c)
     if i==1:
         return {"independent_designs":d["design_count"],"export_rows":d["design_count"]*len(d["N_per_axis"]),"direct_solver_runs":d["direct_solver_runs"],"array_cells":d["record"]["N"]**3}
     if i==2:
