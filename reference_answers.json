@@ -1,0 +1,1026 @@
+{
+  "LAT-01": {
+    "numeric": {
+      "independent_designs": {
+        "value": 120,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "export_rows": {
+        "value": 600,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "direct_solver_runs": {
+        "value": 120,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "array_cells": {
+        "value": 27,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "不能判定动态SEA达标；null不是0也不是准静态SEA。",
+      "材料未知且未验证；600行不等于600次独立FEA。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-02": {
+    "numeric": {
+      "A_compression_tension_ratio": {
+        "value": 1.5,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "B_compression_tension_ratio": {
+        "value": 0.7142857142857143,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "在给定点值中压缩选A、拉伸选B；缺少重复试验与离散性，不能宣称统计显著。",
+      "拉压失效、母材/缺陷和载荷状态相互影响；疲劳缺证据，不能自动通过。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-03": {
+    "numeric": {
+      "rmse_A_mpa": {
+        "value": 0.17320508075688773,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "rmse_B_mpa": {
+        "value": 0.3535533905932738,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "train_rows": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "validation_rows": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "independent_trials": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "A的离散点RMSE更小，但这不证明未采样区间曲线、可制造性或新族预测准确。",
+      "r1–r4训练，r5–r8验证；统计独立trial为T1..T4。归一化器只拟合训练集。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-04": {
+    "numeric": {
+      "selected_cost": {
+        "value": 6,
+        "unit": "budget_unit",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "selected_score": {
+        "value": 6.45,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "最优子集A+C，score3.6+2.85=6.45；B+C+D成本6但score6.25。",
+      "score是题设代理获取函数，不是实测增益；选择后需真正求解并更新模型。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-05": {
+    "numeric": {
+      "energy_A_J": {
+        "value": 17.8,
+        "unit": "J",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "energy_B_J": {
+        "value": 15.9,
+        "unit": "J",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "sea_A_kj_kg": {
+        "value": 2.225,
+        "unit": "kJ/kg",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "sea_B_kj_kg": {
+        "value": 1.9875,
+        "unit": "kJ/kg",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "mean_force_A_N": {
+        "value": 1483.3333333333333,
+        "unit": "N",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "mean_force_B_N": {
+        "value": 1325.0,
+        "unit": "N",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "peak_A_N": {
+        "value": 2000,
+        "unit": "N",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "peak_B_N": {
+        "value": 1600,
+        "unit": "N",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "cfe_A": {
+        "value": 0.7416666666666666,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "cfe_B": {
+        "value": 0.828125,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "A同时满足给定两个数值阈值，B未满足SEA；B的CFE更高不等于SEA更高。",
+      "N·mm×10^-3=J；J/g与kJ/kg数值相等。不把合成曲线称为本文献实验。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-06": {
+    "numeric": {
+      "sigma_inf_mpa": {
+        "value": 20,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "alpha_mpa": {
+        "value": -10,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "beta_mpa": {
+        "value": 2,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "sigma_n3_mpa": {
+        "value": 16.88888888888889,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "min_n_5pct": {
+        "value": 10,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "三点恰定只能校准该假设形式，不能证明规律或置信区间。",
+      "n=9仍超5%，n=10误差4.9%；新夹具改变适用域，不能用旧拟合否认给定反例。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-07": {
+    "numeric": {
+      "required_strength_mpa": {
+        "value": 20,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "feasible_count": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "pareto_count": {
+        "value": 3,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "selected_margin_fraction": {
+        "value": 0.1,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "可行A/B/C/D；E超密度被排除。Pareto为A/B/C，D被A和C支配。",
+      "最大导热率选C，10%裕度；已折算20MPa只比较一次。不能称Pareto最优为普适唯一最优。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-08": {
+    "numeric": {
+      "worst_d_A_mm": {
+        "value": 0.7,
+        "unit": "mm",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "worst_d_B_mm": {
+        "value": 0.6,
+        "unit": "mm",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "strength_A_mpa": {
+        "value": 24.117187499999993,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "strength_B_mpa": {
+        "value": 23.930029154518955,
+        "unit": "MPa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "margin_A_fraction": {
+        "value": 0.004882812499999778,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "margin_B_fraction": {
+        "value": -0.002915451895043497,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "A≈24.1172MPa且直径0.7达阈值；B≈23.9300MPa且直径0.6低于阈值；仅A满足本代理筛查。",
+      "无缺陷分布或独立试验，不能给失效概率、可靠度或工程认证。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-09": {
+    "numeric": {
+      "cell_count_per_axis": {
+        "value": 2,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "box_volume_mm3": {
+        "value": 1728,
+        "unit": "mm^3",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "network_continuum_volume_mm3": {
+        "value": 864,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "network_continuum_porosity": {
+        "value": 0.5,
+        "unit": "1",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "G_center": {
+        "value": 0,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "G_offset_x": {
+        "value": 1,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "G(-x,-y,-z)=-G(x,y,z)，整周期盒中 G≥0 与 G≤0 的连续体积分数均为 1/2，零等值面体积为零。",
+      "(6,6,6) 在裁切盒内部、片状实体内部及网络 G=0 等值面边界；(7.5,6,6) 在裁切盒内部和正相网络实体内部，而在片状实体外。",
+      "|G|≤0.25 不是恒物理壁厚偏置；不得由阈值直接推断最小壁厚。",
+      "外边界需要作为实体边界封闭；显示一张等值面图片不构成闭合实体交付。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-10": {
+    "numeric": {
+      "core_volume_mm3": {
+        "value": 2592,
+        "unit": "mm^3",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "outer_height_mm": {
+        "value": 19.6,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "outer_box_volume_mm3": {
+        "value": 2822.4,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "plates_volume_mm3": {
+        "value": 230.4,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "blend_bottom": {
+        "value": 0,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "blend_mid": {
+        "value": 0.5,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "blend_top": {
+        "value": 1,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "level_mid": {
+        "value": 0.15,
+        "unit": "1",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "b(0)=0、b(1)=1，db/ds 在两端为零；G、P、b、t 在核心内连续。",
+      "用 G/1.5 与 P/3 的给定归一化定义构造混合场，不得擅自改成未归一化的插值。",
+      "标量场连续不等于闭合实体只有一个连通分量，也不能证明最小壁厚满足某工艺。",
+      "固定几何若检查失败，应保持原始配方并真实报告；允许在结果之外提出有标签的后续修改建议。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。",
+      "连接目标不是预先已证实的事实；可复现地发现本配方不能满足连接目标也是有效工程回答，交付完整的失败模型及检查报告可获得对应交付分。"
+    ]
+  },
+  "LAT-11": {
+    "numeric": {
+      "graph_nodes": {
+        "value": 35,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "graph_edges": {
+        "value": 64,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "edge_length_mm": {
+        "value": 4.330127018922193,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "total_centerline_length_mm": {
+        "value": 277.12812921102034,
+        "unit": "mm",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "sum_uncut_cylinder_volume_mm3": {
+        "value": 106.65140261697199,
+        "unit": "mm^3",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "design_box_volume_mm3": {
+        "value": 1000,
+        "unit": "mm^3",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "strut_diameter_mm": {
+        "value": 0.7,
+        "unit": "mm",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "节点数为 (n+1)^3+n^3=27+8=35；BCC 中心到角点的 8n³=64 条边均唯一。",
+      "每边中心线长度 a√3/2；全部边长之和乘 πr² 只给未裁切且未扣交叠的圆柱和。",
+      "采用有厚度的杆后原始包围盒可能超出设计盒；必须裁切实际实体而不只是缩放视图或修改报告值。",
+      "融合/裁切实体体积不应超过未裁切圆柱和（允许明确量化的离散误差）。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-12": {
+    "numeric": {
+      "parts_per_state": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "part_volume_mm3": {
+        "value": 16,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "assembly_solid_volume_mm3": {
+        "value": 64,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "pitch_15_mm": {
+        "value": 4.898979485566356,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "pitch_30_mm": {
+        "value": 5.464101615137754,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "bbox_xy_15_mm": {
+        "value": 9.797958971132712,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "bbox_xy_30_mm": {
+        "value": 10.928203230275509,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "strain_x": {
+        "value": 0.11535507165041059,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "strain_y": {
+        "value": 0.11535507165041059,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "secant_poisson": {
+        "value": -1,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "长度和角度采用题给闭式式，三角函数计算时把度正确转换为弧度。",
+      "面内相邻角点接触，挤出后的四个刚体对应沿 Z 的边接触，理想转铰轴平行 Z；不是通过实体铰链连接的水密单体，每个单独刚体必须闭合。",
+      "每状态体积为同一套四块几何体体积之和；三维边接触不产生有体积的重叠，两个姿态的文件不是两套物理材料。",
+      "−1 来自两方向节距相等导致 εx=εy，不能当成任意实际铰链的材料泊松比。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-13": {
+    "numeric": {
+      "initial_nominal_stress_MPa": {
+        "value": 4.6875,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "final_core_edge_mm": {
+        "value": 10,
+        "unit": "mm",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "final_height_mm": {
+        "value": 12,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "final_plate_volume_mm3": {
+        "value": 200,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "final_force_N": {
+        "value": 400,
+        "unit": "N",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "final_radius_mm": {
+        "value": 0.3,
+        "unit": "mm",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "final_nominal_stress_MPa": {
+        "value": 4,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "nominal_headroom_MPa": {
+        "value": 1,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "graph_edges": {
+        "value": 64,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "300/64=4.6875 MPa；最终 400/100=4 MPa，使用 N/mm²=MPa。",
+      "最终核心不包括板厚，保持 10 mm；总高度为 10+2×1=12 mm。",
+      "更新胞长不能偷偷等比增大杆半径；最终 r 仍为 0.30 mm。",
+      "名义应力筛查通过只说明包络力/面积条件满足，不证明内部杆件应力、屈曲、疲劳或打印性能。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-14": {
+    "numeric": {
+      "outer_x_mm": {
+        "value": 12,
+        "unit": "mm",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "outer_y_mm": {
+        "value": 12,
+        "unit": "mm",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "outer_z_mm": {
+        "value": 14,
+        "unit": "mm",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "two_plate_volume_mm3": {
+        "value": 288,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "final_density_g_mm3": {
+        "value": 0.0012,
+        "unit": "g/mm^3",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "maximum_solid_volume_mm3": {
+        "value": 1666.6666666666667,
+        "unit": "mm^3",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "new_old_mass_ratio": {
+        "value": 1.1764705882352942,
+        "unit": "1",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "service_nominal_stress_MPa": {
+        "value": 5,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "design_force_N": {
+        "value": 1080,
+        "unit": "N",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "design_nominal_stress_MPa": {
+        "value": 7.5,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "screening_margin_percent": {
+        "value": 33.33333333333333,
+        "unit": "%",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "m[g]=V[mm³]×ρ[g/cm³]/1000；禁止把 mm³ 直接乘 g/cm³。",
+      "密度只影响质量计算，不能改变本题几何或重新用不同实体体积支撑比较。",
+      "最终服务应力 720/144=5 MPa；设计应力 1.5×720/144=7.5 MPa；裕度为 10/7.5−1。",
+      "允许用未裁切且未扣交叠的 64 根圆柱体积和加两块板体积建立理想几何上界：V_upper=64π(0.40)²(6√3/2)+288=455.1597494078 mm³，最终密度下 m_upper=0.5461916993 g<2.00 g。因此可明确限定为理想题设几何的质量预算已由解析上界证明；不得把该上界称为导出模型的实测体积或实际质量，也不能据此声称文件已通过几何检查。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。",
+      "评分区分理论预算证明与实际文件验证：正确的解析上界证明可获得对应工程正确性分；未重新读取模型时，实际质量与文件检查仍待验证，不授予其尚未完成的交付分。"
+    ]
+  },
+  "LAT-15": {
+    "numeric": {
+      "px_initial_mm": {
+        "value": 4.981120078050414,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "py_initial_mm": {
+        "value": 6.603439228740969,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "px_final_mm": {
+        "value": 6.464101615137754,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "py_final_mm": {
+        "value": 7.196152422706632,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "final_bbox_x_mm": {
+        "value": 12.928203230275509,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "final_bbox_y_mm": {
+        "value": 14.392304845413264,
+        "unit": "mm",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "final_bbox_z_mm": {
+        "value": 1.5,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "strain_x": {
+        "value": 0.2977204953605077,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "strain_y": {
+        "value": 0.08975825678624005,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "secant_poisson": {
+        "value": -0.3014849773024608,
+        "unit": "1",
+        "abs_tol": 1e-08,
+        "rel_tol": 1e-05
+      },
+      "part_volume_mm3": {
+        "value": 36,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "total_solid_volume_mm3": {
+        "value": 144,
+        "unit": "mm^3",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "material_A_mass_g": {
+        "value": 0.0864,
+        "unit": "g",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "material_B_mass_g": {
+        "value": 0.072,
+        "unit": "g",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "total_mass_g": {
+        "value": 0.1584,
+        "unit": "g",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "最终使用 10°→30°，20° 是已被替换的中间请求，不得作为最终结果。",
+      "矩形的两个方向节距不同，有限割线泊松比一般不等于 −1。",
+      "每状态是同一套 4 块装配，每块 36 mm³；A、B 各 2 块，每状态总体积 144 mm³、总质量 0.1584 g，密度改变不改变体积。两个姿态的八个文件不得累加为八块物理材料。",
+      "面内是角点接触，三维挤出后为沿 Z 的边接触，理想转铰绕 Z 轴；这只是装配运动学约束，无实体铰链、材料本构或载荷时不能推断实际材料负泊松比。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-16": {
+    "numeric": {
+      "graph_nodes": {
+        "value": 27,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "graph_edges": {
+        "value": 54,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "total_centerline_length_mm": {
+        "value": 270,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "final_strut_diameter_mm": {
+        "value": 1.2,
+        "unit": "mm",
+        "abs_tol": 1e-12,
+        "rel_tol": 1e-05
+      },
+      "final_total_height_mm": {
+        "value": 12,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "holes_per_plate": {
+        "value": 4,
+        "unit": "1",
+        "abs_tol": 0,
+        "rel_tol": 1e-05
+      },
+      "min_hole_to_outer_edge_ligament_mm": {
+        "value": 1,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "min_adjacent_hole_ligament_mm": {
+        "value": 2,
+        "unit": "mm",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      },
+      "two_plates_after_holes_volume_mm3": {
+        "value": 143.45133223538372,
+        "unit": "mm^3",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "nominal_stress_MPa": {
+        "value": 2,
+        "unit": "MPa",
+        "abs_tol": 1e-09,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "SC 节点为 3³=27；边数为 3n(n+1)²=54，每条 5 mm。",
+      "最终总高 10+2×1=12 mm；杆直径为 2×0.6=1.2 mm。",
+      "孔中心至最近外边界为 2.5 mm，减半径 1.5 mm 后余量 1 mm；相邻孔中心距 5 mm，孔间余量 2 mm。",
+      "板中孔去除体积为 2×4×π×1.5²×1=18π mm³；两板余体积 200−18π。",
+      "名义直径和孔径满足阈值不等于实际融合/裁切最小特征及排粉均已验证；缺少可靠测量应分别列待验证。"
+    ],
+    "review_notes": [
+      "本题数据均为合成研究基准，不是材料试验数据；不要求或允许访问私人数据库。",
+      "此文件仅定义题目与评分准则；尚未生成、打开或检测任何被测模型的几何交付物。正式评分须实际运行脚本、重新导入几何并独立测量。",
+      "无已验证 STEP 导出能力时，提交真实 STL 与可复现源文件并说明 STEP 不支持；不得用改扩展名的网格冒充 STEP。"
+    ]
+  },
+  "LAT-17": {
+    "numeric": {
+      "last_relative_change": {
+        "value": 0.06349206349206349,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "allowed_change_fraction": {
+        "value": 0.02,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "最后变化6.3492%>2%，未达到题设收敛。",
+      "可新增更细一级（例如0.05mm）检验并检查边界/单元质量，但不能预报必然收敛。反力收敛也不保证局部应力收敛。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-18": {
+    "numeric": {
+      "logical_jobs": {
+        "value": 1,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "verified_deliverable_cad": {
+        "value": 0,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "download_retries_remaining": {
+        "value": 1,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "J1是一个任务；求解完成不等于可交付文件已校验。哈希不等，不能交付为验证通过。",
+      "先保持J1/去重→同工件再下载一次→核对hash→若相等再重读几何，否则报告阻塞；不无条件重跑求解。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-19": {
+    "numeric": {
+      "interpolation_weight": {
+        "value": 0.6,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "lower_Hz": {
+        "value": 920,
+        "unit": "Hz",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "upper_Hz": {
+        "value": 1380,
+        "unit": "Hz",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "bandwidth_Hz": {
+        "value": 460,
+        "unit": "Hz",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "relative_bandwidth": {
+        "value": 0.4,
+        "unit": "1",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "[920,1380]不覆盖[900,1100]，900–920Hz缺失。",
+      "0.30超域，需相同条件下新求解/实验再验证；不能把方向性带隙叫全向带隙或保证有限件隔振。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  },
+  "LAT-20": {
+    "numeric": {
+      "hydraulic_power_A_W": {
+        "value": 0.4,
+        "unit": "W",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      },
+      "max_allowed_pressure_drop_Pa": {
+        "value": 25000,
+        "unit": "Pa",
+        "abs_tol": 1e-06,
+        "rel_tol": 1e-05
+      }
+    },
+    "assertions": [
+      "A的两项数值阈值均符合，P=0.4W；B缺压降不能断言可行或更优。",
+      "C流量不同，不能把12K直接作为同流量性能优势；需控制相同边界条件重测。",
+      "B在同条件下压降≤25000Pa才满足泵功门槛；这些仍是合成筛查。"
+    ],
+    "review_notes": [
+      "全部数值为本基准自编合成fixture；参考计算通过不代表任何真实结构性能已验证。",
+      "数值检查仅是一部分；结论、文件、证据与沟通必须另按rubric审查。"
+    ]
+  }
+}

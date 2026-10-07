@@ -1,0 +1,40 @@
+{
+  "name": "ATLAS-Lattice-Bench",
+  "version": "0.1.0",
+  "released_on": "2026-10-07",
+  "research_cutoff": "2026-10-07",
+  "language": "zh-CN",
+  "case_count": 20,
+  "source_count": 13,
+  "status": "authored_and_offline_checked_not_model_benchmarked",
+  "data_origin": "original_synthetic_fixtures_not_experimental_measurements",
+  "split": "public_development",
+  "heldout_cases_created": false,
+  "model_runs_completed": 0,
+  "cad_reference_artifacts_generated": false,
+  "planned_comparison": {
+    "baseline_model": "gpt-6-sol",
+    "atlas_model": "gpt-6-sol",
+    "reasoning_effort": "high",
+    "actual_runtime_high_verified": false,
+    "baseline_track": "matched_information_tools_and_budget_proposed_not_frozen",
+    "speed_mode": "same_for_both_arms_freeze_before_run"
+  },
+  "weights": {
+    "engineering_correctness": 35,
+    "evidence_integrity": 20,
+    "usable_delivery": 25,
+    "user_effort": 10,
+    "efficiency": 10
+  },
+  "score_requires": "manual_evidence_and_artifact_review_plus_numeric_checks_and_measured_efficiency",
+  "strata": [
+    "data_evidence",
+    "numerical_mechanics",
+    "cad_delivery",
+    "multiturn_constraints",
+    "failure_recovery"
+  ],
+  "license": "MIT",
+  "third_party_sources": "bibliographic_links_only_original_source_licenses_apply"
+}
