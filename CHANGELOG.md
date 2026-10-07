@@ -2,6 +2,7 @@
 
 ## 0.3.0 — 2026-10-07
 
+- Clarify the engineering design endpoint: reconstructable lattice specifications satisfying the original mechanical requirements, with per-constraint evidence and margins. Distinguish `passed_screening`, `needs_validation` and bounded, demonstrated `infeasible`; relaxing requirements does not satisfy the original task. Core cases remain diagnostic, and future end-to-end contracts must be versioned before scoring.
 - Add LAT-25–32 as an independently scored engineering-application track backed by a hash-fixed ATLAS database snapshot and explicitly attributed feedback assets.
 - Separate synthetic engineering scenarios from direct simulation, estimated N5 data and experimental observations. Preserve missing fields and provenance limits; the 0.5% offset-yield metric does not identify local first yield.
 - Give both comparison arms the same evidence, with delayed feedback exported only at its scripted turn. No ATLAS advantage or complete model score is asserted.

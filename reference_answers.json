@@ -1395,6 +1395,24 @@
         "unit": "1",
         "abs_tol": 1e-07,
         "rel_tol": 1e-06
+      },
+      "design_selected_radius_mm": {
+        "value": 0.45,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_allowable_N": {
+        "value": 842.5095187619769,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_yield_margin": {
+        "value": 0.05313689845247116,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
       }
     },
     "assertions": [
@@ -1627,6 +1645,30 @@
         "unit": "MPa",
         "abs_tol": 1e-07,
         "rel_tol": 1e-06
+      },
+      "design_cells_per_axis": {
+        "value": 8.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_allowable_N": {
+        "value": 1135.170720016137,
+        "unit": "N",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_yield_margin": {
+        "value": 1.270341440032274,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_kern_reserve_mm": {
+        "value": 0.666666666666667,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
       }
     },
     "assertions": [
@@ -1737,6 +1779,12 @@
         "unit": "1",
         "abs_tol": 1e-07,
         "rel_tol": 1e-06
+      },
+      "design_displacement_reserve_mm": {
+        "value": 0.02460876088727676,
+        "unit": "mm",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
       }
     },
     "assertions": [
@@ -1795,6 +1843,18 @@
       },
       "validation_specimen_count": {
         "value": 4.0,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_frozen_prediction_margin": {
+        "value": -0.03810052109801698,
+        "unit": "1",
+        "abs_tol": 1e-07,
+        "rel_tol": 1e-06
+      },
+      "design_related_group_margin": {
+        "value": 0.11446611955969654,
         "unit": "1",
         "abs_tol": 1e-07,
         "rel_tol": 1e-06

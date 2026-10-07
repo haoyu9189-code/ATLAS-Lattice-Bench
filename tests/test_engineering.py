@@ -68,6 +68,32 @@ class EngineeringOracleTests(unittest.TestCase):
         self.assertAlmostEqual(got["absorbed_energy_J"], .6)
         self.assertEqual(got["load3_yield_ratio"], 1)
 
+    def test_radius_redesign_keeps_800_N_and_does_not_choose_unneeded_larger_radius(self):
+        case = self.case(25, {"record_id": "kelvin", "load_levels_N": [100, 400, 800],
+                              "safety_factor": 1.5, "energy_end_strain": .15,
+                              "design_brief": {"candidate_ids": ["large", "kelvin", "middle"],
+                                               "service_force_N": 800, "safety_factor": 1.5}},
+                         [row(), row("middle", radius=.45, yield_stress_mpa=12.5),
+                          row("large", radius=.5, yield_stress_mpa=20)])
+        got = eng.oracle(case)
+        # The original 500 N offset force is insufficient. A 1250 N candidate
+        # clears the 1200 N design force, so the 2000 N candidate is unnecessary.
+        self.assertEqual(got["offset_yield_force_N"], 500)
+        self.assertEqual(got["design_selected_radius_mm"], .45)
+        self.assertAlmostEqual(got["design_allowable_N"], 2500 / 3)
+        self.assertAlmostEqual(got["design_yield_margin"], 1 / 24)
+        lowered = copy.deepcopy(case)
+        lowered["inputs"]["design_brief"]["service_force_N"] = 300
+        with self.assertRaisesRegex(ValueError, "cannot reduce.*load"):
+            eng.oracle(lowered)
+        lowered = copy.deepcopy(case)
+        lowered["inputs"]["design_brief"]["safety_factor"] = 1
+        with self.assertRaisesRegex(ValueError, "cannot reduce.*factor"):
+            eng.oracle(lowered)
+        case["inputs"]["design_brief"]["candidate_ids"] = ["kelvin"]
+        with self.assertRaisesRegex(ValueError, "No listed radius"):
+            eng.oracle(case)
+
     def test_loading_envelope_does_not_sort_unloading_or_choose_later_equal_stress(self):
         curve = {"strain": [0, .02, .01, .04, .06, .1], "stress": [0, 2, 90, 4, 3, 2]}
         points = eng._loading_envelope(curve)
@@ -177,6 +203,36 @@ class EngineeringOracleTests(unittest.TestCase):
         self.assertAlmostEqual(got["yield_margin"], .5625)
         self.assertAlmostEqual(got["secondary_min_edge_stress_MPa"], -.2)
 
+    def test_eccentric_redesign_requires_contact_even_with_ample_strength(self):
+        case = self.case(29, {"record_id": "kelvin", "force_N": 500, "eccentricity_mm": 3,
+                              "secondary_eccentricity_mm": 6, "safety_factor": 1.5,
+                              "design_brief": {"allowed_cells_per_axis": [8, 5], "force_N": 500,
+                                               "eccentricities_mm": [3, 6], "safety_factor": 1.5}},
+                         [row(n=5, yield_stress_mpa=100)])
+        got = eng.oracle(case)
+        self.assertGreater(got["yield_margin"], 0)
+        self.assertLess(got["secondary_min_edge_stress_MPa"], 0)
+        self.assertEqual(got["design_cells_per_axis"], 8)
+        self.assertAlmostEqual(got["design_kern_reserve_mm"], 2 / 3)
+        case["inputs"]["design_brief"]["allowed_cells_per_axis"] = [5]
+        with self.assertRaisesRegex(ValueError, "both full-contact and yield"):
+            eng.oracle(case)
+
+    def test_eccentric_redesign_requires_strength_even_when_both_sizes_have_contact(self):
+        case = self.case(29, {"record_id": "kelvin", "force_N": 500, "eccentricity_mm": 1,
+                              "secondary_eccentricity_mm": 2, "safety_factor": 1.5,
+                              "design_brief": {"allowed_cells_per_axis": [5, 8], "force_N": 500,
+                                               "eccentricities_mm": [1, 2], "safety_factor": 1.5}},
+                         [row(n=5, yield_stress_mpa=.7)])
+        got = eng.oracle(case)
+        self.assertGreater(got["secondary_min_edge_stress_MPa"], 0)
+        self.assertLess(got["yield_margin"], 0)
+        self.assertEqual(got["design_cells_per_axis"], 8)
+        self.assertGreater(got["design_yield_margin"], 0)
+        case["inputs"]["design_brief"]["eccentricities_mm"] = [1]
+        with self.assertRaisesRegex(ValueError, "omit the governing eccentricity"):
+            eng.oracle(case)
+
     def test_radius_tolerance_inversion_and_bounds_are_conditional(self):
         rows = [row("lo", radius=.3, modulus_mpa=60, yield_stress_mpa=3), row(),
                 row("hi", radius=.5, modulus_mpa=140, yield_stress_mpa=7)]
@@ -210,18 +266,30 @@ class EngineeringOracleTests(unittest.TestCase):
         self.assertEqual(got["elastic_displacement_mm"], .1)
         self.assertEqual(got["mass_ratio_for_identical_geometry"], 1.2)
         self.assertFalse(any("yield" in key or key == "mass_g" for key in got))
+        case["inputs"]["design_brief"] = {"max_displacement_mm": .2, "force_N": 200, "safety_factor": 1.5}
+        design = eng.oracle(case)
+        self.assertAlmostEqual(design["design_displacement_reserve_mm"], .1)
+        self.assertFalse(any("yield" in key for key in design))
+        # A larger SF cannot supply missing target-material plastic properties.
+        case["inputs"]["design_brief"]["safety_factor"] = 3
+        self.assertEqual(eng.oracle(case), design)
+        case["inputs"]["design_brief"]["max_displacement_mm"] = .05
+        self.assertLess(eng.oracle(case)["design_displacement_reserve_mm"], 0)
 
     def test_holdout_asset_unread_until_reveal_and_prediction_stays_frozen(self):
         calibration = self.asset("experiment_n4.json", {"group": {"metrics": {"sigma20": {"mean": 6, "sd": .4, "n": 4}}},
                                                          "curve": {"strain": [0, .2], "stress": [0, 999]}})
         validation = self.asset("experiment_n5.json", {"group": {"metrics": {"sigma20": {"mean": 9, "sd": 2, "n": 3}}}}, turn=2)
         case = self.case(32, {"simulation_n4_record_id": "n4", "simulation_n5_record_id": "n5", "calibration_asset": calibration,
-                              "validation_relative_error_limit": .1}, [row("n4", n=4, stress20_mpa=3), row("n5", n=5, stress20_mpa=4)])
+                              "validation_relative_error_limit": .1, "design_brief": {"min_sigma20_MPa": 8.5}},
+                         [row("n4", n=4, stress20_mpa=3), row("n5", n=5, stress20_mpa=4)])
         with patch.object(eng, "checked_asset", wraps=checked_asset) as loader:
             initial = eng.oracle(case)
         self.assertEqual(initial["calibration_factor"], 2)
         self.assertEqual(initial["predicted_n5_sigma20_MPa"], 8)
         self.assertEqual(initial["calibration_specimen_count"], 4)
+        self.assertAlmostEqual(initial["design_frozen_prediction_margin"], -1 / 17)
+        self.assertNotIn("design_related_group_margin", initial)
         self.assertEqual(len(loader.call_args_list), 2)
         self.assertFalse(any(call.args[0]["path"] == validation for call in loader.call_args_list))
         # Merely inserting a future path into initial inputs cannot bypass turn metadata.
@@ -236,6 +304,8 @@ class EngineeringOracleTests(unittest.TestCase):
         self.assertAlmostEqual(final["validation_relative_error"], 1 / 9)
         self.assertEqual(final["observed_n5_sample_sd_MPa"], 2)
         self.assertEqual(final["validation_specimen_count"], 3)
+        self.assertEqual(final["design_frozen_prediction_margin"], initial["design_frozen_prediction_margin"])
+        self.assertAlmostEqual(final["design_related_group_margin"], 1 / 17)
 
     def test_hash_mutation_and_undeclared_asset_are_rejected(self):
         case = self.case(31, {"record_id": "kelvin", "assumed_source_solid_E_MPa": 1000,

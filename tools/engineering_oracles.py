@@ -174,6 +174,15 @@ def _interpolate(rows, radius, field):
     raise ValueError("No bracketing radius records")
 
 
+def _design_load(brief, name, required, minimum_safety=None):
+    force = _number(brief[name], name, positive=True)
+    if force < required:
+        raise ValueError("Design cannot reduce the required service load")
+    if minimum_safety is not None and _safety(brief) < minimum_safety:
+        raise ValueError("Design cannot reduce the required safety factor")
+    return force
+
+
 def oracle(c):
     """Return scalar anchors from public inputs only; partial turns stay partial."""
     cid = c["id"]
@@ -198,6 +207,25 @@ def oracle(c):
                   "load3_yield_ratio": _number(loads[2], "load", nonnegative=True) / yield_force}
         for i, load in enumerate(loads, 1):
             result[f"displacement_load{i}_mm"] = _first_crossing(points, _number(load, "load", nonnegative=True) / area) * height
+        if "design_brief" in d:
+            brief = d["design_brief"]
+            force = _design_load(brief, "service_force_N", max(loads), _safety(d))
+            factor = _safety(brief)
+            candidates = []
+            geometry = ("topology", "n", "cell_size_mm", "slider", "mode")
+            for rid in brief["candidate_ids"]:
+                candidate = records[rid]
+                if any(candidate[field] != row[field] for field in geometry):
+                    raise ValueError("Radius redesign must preserve the declared geometry family and array size")
+                radius = _number(candidate["radius"], "radius", positive=True)
+                _, fy = _mechanics(candidate)
+                if fy >= factor * force:
+                    candidates.append((radius, rid, fy / factor))
+            if not candidates:
+                raise ValueError("No listed radius meets the unchanged service load")
+            radius, _, allowable = min(candidates)
+            result.update(design_selected_radius_mm=radius, design_allowable_N=allowable,
+                          design_yield_margin=allowable / force - 1)
         return result
     if cid == "LAT-26":
         force = _number(d["service_force_N"], "service_force_N", positive=True)
@@ -265,11 +293,34 @@ def oracle(c):
         stress = force / area
         peak = stress + force * eccentricity / section
         factor = _safety(d)
-        return {"section_modulus_mm3": section, "nominal_stress_MPa": stress, "max_edge_stress_MPa": peak,
-                "min_edge_stress_MPa": stress - force * eccentricity / section,
-                "screening_allowable_N": strength / (factor * (1 / area + eccentricity / section)),
-                "yield_margin": strength / (factor * peak) - 1, "kern_limit_mm": height / 6,
-                "secondary_min_edge_stress_MPa": stress - force * secondary / section}
+        result = {"section_modulus_mm3": section, "nominal_stress_MPa": stress, "max_edge_stress_MPa": peak,
+                  "min_edge_stress_MPa": stress - force * eccentricity / section,
+                  "screening_allowable_N": strength / (factor * (1 / area + eccentricity / section)),
+                  "yield_margin": strength / (factor * peak) - 1, "kern_limit_mm": height / 6,
+                  "secondary_min_edge_stress_MPa": stress - force * secondary / section}
+        if "design_brief" in d:
+            brief = d["design_brief"]
+            design_force = _design_load(brief, "force_N", force, factor)
+            eccentricities = [_number(e, "eccentricity_mm", nonnegative=True) for e in brief["eccentricities_mm"]]
+            if not eccentricities or max(eccentricities) < max(eccentricity, secondary):
+                raise ValueError("Design cannot omit the governing eccentricity")
+            worst = max(eccentricities)
+            candidates = []
+            for n in brief["allowed_cells_per_axis"]:
+                edge, design_area = _dimensions(row, n)
+                kern_reserve = edge / 6 - worst
+                design_section = edge ** 3 / 6
+                allowable = strength / (_safety(brief) * (1 / design_area + worst / design_section))
+                # A positive strength margin alone is insufficient if the
+                # full-contact linear section solution predicts tension.
+                if kern_reserve >= 0 and allowable >= design_force:
+                    candidates.append((n, allowable, kern_reserve))
+            if not candidates:
+                raise ValueError("No allowed array size meets both full-contact and yield screening")
+            n, allowable, reserve = min(candidates)
+            result.update(design_cells_per_axis=n, design_allowable_N=allowable,
+                          design_yield_margin=allowable / design_force - 1, design_kern_reserve_mm=reserve)
+        return result
     if cid == "LAT-30":
         rows = _radius_table([records[rid] for rid in d["radius_records"]])
         nominal = _number(d["nominal_radius_mm"], "nominal_radius_mm", positive=True)
@@ -306,10 +357,17 @@ def oracle(c):
         ratio = target / source
         stiffness = modulus * ratio * area / height
         density_ratio = _number(d["target_density_g_cm3"], "target density", positive=True) / _number(d["assumed_source_density_g_cm3"], "source density", positive=True)
-        return {"normalized_modulus": modulus / source, "elastic_scale_factor": ratio,
-                "target_effective_modulus_MPa": modulus * ratio, "target_stiffness_N_per_mm": stiffness,
-                "elastic_displacement_mm": _number(d["force_N"], "force_N", nonnegative=True) / stiffness,
-                "mass_ratio_for_identical_geometry": density_ratio}
+        result = {"normalized_modulus": modulus / source, "elastic_scale_factor": ratio,
+                  "target_effective_modulus_MPa": modulus * ratio, "target_stiffness_N_per_mm": stiffness,
+                  "elastic_displacement_mm": _number(d["force_N"], "force_N", nonnegative=True) / stiffness,
+                  "mass_ratio_for_identical_geometry": density_ratio}
+        if "design_brief" in d:
+            brief = d["design_brief"]
+            force = _design_load(brief, "force_N", d["force_N"])
+            _safety(brief)  # Required design input; it cannot create an unknown target yield stress.
+            maximum = _number(brief["max_displacement_mm"], "max_displacement_mm", positive=True)
+            result["design_displacement_reserve_mm"] = maximum - force / stiffness
+        return result
     # LAT-32: never recover audited metrics from display-downsampled curves.
     calibration = _asset(c, d["calibration_asset"])["group"]["metrics"]["sigma20"]
     n4 = _number(records[d["simulation_n4_record_id"]]["stress20_mpa"], "N4 sigma20", positive=True)
@@ -318,6 +376,9 @@ def oracle(c):
     predicted = factor * n5
     result = {"calibration_factor": factor, "predicted_n5_sigma20_MPa": predicted,
               "calibration_specimen_count": _integer(calibration["n"], "calibration specimen count")}
+    if "design_brief" in d:
+        threshold = _number(d["design_brief"]["min_sigma20_MPa"], "min_sigma20_MPa", positive=True)
+        result["design_frozen_prediction_margin"] = predicted / threshold - 1
     final, turn = _final_inputs(c)
     if "validation_asset" not in final:
         return result
@@ -327,4 +388,6 @@ def oracle(c):
                   validation_bias_MPa=predicted - mean,
                   observed_n5_sample_sd_MPa=_number(observed["sd"], "sample SD", nonnegative=True),
                   validation_specimen_count=_integer(observed["n"], "validation specimen count"))
+    if "design_brief" in d:
+        result["design_related_group_margin"] = mean / threshold - 1
     return result
